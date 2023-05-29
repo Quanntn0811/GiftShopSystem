@@ -1,9 +1,3 @@
-<%-- 
-    Document   : MainPage
-    Created on : May 23, 2023, 11:40:49 PM
-    Author     : dell
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
