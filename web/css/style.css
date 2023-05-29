@@ -1,10 +1,232 @@
-.header .middle-header {
-  background: rgba(255, 255, 255, 0.84);
-  padding: 18px 0;
-  position: relative;
+
+/* ----- v CAN BE DELETED v ----- */
+body {
+  background-color: #78909c;
 }
 
-.header .logo {
-  display: inline-block;
-  overflow: hidden;
+.demo {
+  padding-top: 60px;
+  padding-bottom: 110px;
 }
+
+.btn-demo {
+  margin: 15px;
+  padding: 10px 15px;
+  border-radius: 0;
+  font-size: 16px;
+  background-color: #ffffff;
+}
+
+.btn-demo:focus {
+  outline: 0;
+}
+
+.demo-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  background-color: #212121;
+  text-align: center;
+}
+
+.demo-footer > a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+}
+
+.container-home {
+  max-width: 1190px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  @media screen and (max-width: 992px) {
+    max-width: 960px;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 772px;
+  }
+  @media screen and (max-width: 576px) {
+    max-width: 540px;
+  }
+}
+
+.carousel-starter {
+  height: 534px;
+  width: 100%;
+  @media screen and (max-width: 768px) {
+    height: 300px;
+  }
+  @media screen and (max-width: 576px) {
+    height: 224px;
+  }
+
+  .custom-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.list-category {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #c83152;
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  align-items: center;
+  > .category-item p {
+    color: white;
+  }
+  > .category-item:hover {
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.head-title {
+  font-size: 26px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* New product */
+.new-product {
+  .product-cart-wrapper {
+    position: relative;
+  }
+  .action-prd-cart {
+    background-color: #ffffff80;
+    padding: 10px;
+    border-radius: 999px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  .action-prd-cart:hover {
+    background-color: #c83152;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  }
+
+  .love-prd {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .love-prd:hover {
+    cursor: pointer;
+  }
+
+  .love-prd:hover svg path {
+    fill: #c83152;
+    transition: all 0.2s linear;
+  }
+
+  .product-card-img {
+    border-radius: 8px;
+  }
+
+  .prd-name {
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 12px;
+  }
+
+  .prd-description {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 14px;
+  }
+
+  .prd-price {
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 26px;
+    margin-top: 14px;
+    color: #c83152;
+  }
+}
+/* New product */
+
+/* Hot product */
+.hot-product {
+  .product-cart-wrapper {
+    position: relative;
+  }
+  .action-prd-cart {
+    background-color: #ffffff80;
+    padding: 10px;
+    border-radius: 999px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+  .action-prd-cart:hover {
+    background-color: #c83152;
+    cursor: pointer;
+    transition: all 0.2s linear;
+  }
+
+  .love-prd {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .love-prd:hover {
+    cursor: pointer;
+  }
+
+  .love-prd:hover svg path {
+    fill: #c83152;
+    transition: all 0.2s linear;
+  }
+
+  .product-card-img {
+    border-radius: 8px;
+  }
+
+  .prd-name {
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 12px;
+  }
+
+  .prd-description {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 14px;
+  }
+
+  .prd-price {
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 26px;
+    margin-top: 14px;
+    color: #c83152;
+  }
+}
+/* Hot product */
+
+/* Only in meeko */
+.only-in-meeko {
+  .img-prd-only {
+    max-height: 248px;
+    border-radius: 8px;
+  }
+}
+/* Only in meeko */
+
+/* Blog */
+
+
