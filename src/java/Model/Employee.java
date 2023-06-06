@@ -117,4 +117,11 @@ public class Employee {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "employeeId=" + employeeId + ", fullName=" + fullName + ", dob=" + dob + ", phone=" + phone + ", email=" + email + ", password=" + password + ", address=" + address + ", status=" + status + ", manager=" + manager + ", description=" + description + '}';
+    }
+    
+    
 }
