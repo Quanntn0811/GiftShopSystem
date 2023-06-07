@@ -18,12 +18,14 @@ public class CategoryDAO extends DBContext{
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                list.add(new Category(rs.getInt("CategoryID"),
+                list.add(new Category(
+                        rs.getInt("CategoryID"),
                         rs.getString("CategoryName"),
                         rs.getBoolean("Status"),
                         rs.getString("Description"),
                         rs.getBoolean("isParent"),
-                        getCategoryByID(rs.getInt("parentID"))));
+                        getCategoryByID(rs.getInt("parentID"))
+                        ));
             }
         } catch (Exception e) {
             System.out.println("get list categories");
@@ -39,27 +41,18 @@ public class CategoryDAO extends DBContext{
             stm.setInt(1, CategoryID);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                return new Category(rs.getInt("CategoryID"),
+                return new Category(
+                        rs.getInt("CategoryID"),
                         rs.getString("CategoryName"),
                         rs.getBoolean("Status"),
                         rs.getString("Description"),
                         rs.getBoolean("isParent"),
-                        getCategoryByID(rs.getInt("parentID")));
+                        getCategoryByID(rs.getInt("parentID")
+                        ));
             }
         } catch (Exception e) {
             System.out.println("get category by id");
         }
         return null;
-    }
-    
-    public static void main(String[] args) {
-        CategoryDAO dao = new CategoryDAO();
-        //Test getAll()
-        ArrayList<Category> list = dao.getAll();
-        System.out.println(list.get(1));
-        
-        //TestgetCategoryByID
-        Category ctg = dao.getCategoryByID(1);
-        System.out.println(ctg);
     }
 }
