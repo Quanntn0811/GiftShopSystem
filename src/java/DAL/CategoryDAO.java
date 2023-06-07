@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAL;
 
 import Model.Category;
@@ -11,7 +7,7 @@ import java.util.ArrayList;
 
 public class CategoryDAO extends DBContext{
     
-        public ArrayList<Category> getAll() {
+    public ArrayList<Category> getAll() {
         ArrayList<Category> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM CATEGORIES";
