@@ -5,13 +5,15 @@
 package Controllers.Authenticate;
 
 import DAL.EmployeeDAO;
+import DAL.UserDAO;
 import Model.Employee;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -71,17 +73,17 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Employee e = new Employee();
-        e.setEmail(request.getParameter("email"));
-        e.setPassword(request.getParameter("pwd"));
+        User user = new User();
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("pwd"));
 
-        EmployeeDAO eDao = new EmployeeDAO();
-        e = eDao.getEmployeeByEmailAndPwd(e);
-        if (e != null) {
-            request.getSession().setAttribute("employee", e);
-            response.getWriter().print("Oke");
+        UserDAO uDAO = new UserDAO();
+        user = uDAO.getEmployeeByEmailAndPwd(user);
+        if (user != null) {
+            request.getSession().setAttribute("user", user);
+            response.sendRedirect("home");
         } else {
-            response.getWriter().print("Not oke");
+            response.getWriter().print("Login Fail");
         }
     }
 
