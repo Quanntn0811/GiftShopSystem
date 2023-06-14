@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author Kojer
- */
 public class Constants {
     
     public static String GOOGLE_CLIENT_ID = "847156171544-m0tba90g6elh7sk3ggohrnlj184ija1t.apps.googleusercontent.com";

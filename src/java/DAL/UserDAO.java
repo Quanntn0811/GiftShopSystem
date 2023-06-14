@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAL;
 
+import Model.Role;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,38 +8,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Kojer
- */
 public class UserDAO extends DBContext {
-    public User getEmployeeByEmailAndPwd(User user) {
-        try {
-            String sql = "SELECT *\n"
-                    + "  FROM [User]\n"
-                    + "	Where Email = ? and [Password] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, user.getEmail());
-            stm.setString(2, user.getPassword());
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                return new User(rs.getString("CustomerId"),
-                        rs.getString("FullName"),
-                        rs.getString("Email"),
-                        rs.getString("Password"),
-                        rs.getString("Phone"),
-                        rs.getDate("DOB"),
-                        rs.getString("Address"),
-                        rs.getString("Avatar"),
-                        rs.getBoolean("Status"),
-                        rs.getString("Description"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
+    
     public void insertUser(User user) {
         try {
             String sql = "INSERT INTO [User]\n"
@@ -73,29 +40,52 @@ public class UserDAO extends DBContext {
 
     }
 
-    public User getUserByEmail(String email) {
+    public User doLogin(String email, String pwd) {
         try {
-            String sql = "SELECT *\n"
-                    + "  FROM [User]\n"
-                    + "	Where Email = ?";
+            String sql = "SELECT [UserID]\n"
+                    + "      ,[FullName]\n"
+                    + "      ,[Email]\n"
+                    + "      ,[Password]\n"
+                    + "      ,[Phone]\n"
+                    + "      ,[DOB]\n"
+                    + "      ,[Address]\n"
+                    + "      ,[Avatar]\n"
+                    + "      ,[RoleID]\n"
+                    + "      ,[ManagerID]\n"
+                    + "      ,[Status]\n"
+                    + "      ,[Description]\n"
+                    + "  FROM [User] Where Email = ? and Password = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, email);
+            stm.setString(2, pwd);
             ResultSet rs = stm.executeQuery();
+
+            RoleDAO rDao = new RoleDAO();
+
             if (rs.next()) {
-                return new User(rs.getString("CustomerId"),
+
+                Role role = rDao.getRoleByID(rs.getInt("RoleID"));
+                User manager = getUserByID(rs.getInt("ManagerID"));
+
+                return new User(rs.getInt("UserID"),
                         rs.getString("FullName"),
                         rs.getString("Email"),
-                        rs.getString("Password"),
                         rs.getString("Phone"),
                         rs.getDate("DOB"),
                         rs.getString("Address"),
                         rs.getString("Avatar"),
+                        role,
+                        manager,
                         rs.getBoolean("Status"),
                         rs.getString("Description"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+
+    private User getUserByID(int userID) {
         return null;
     }
 }
