@@ -3,7 +3,7 @@ package Model;
 import java.sql.Date;
 
 public class User {
-   private int customerId;
+    private int customerId;
     private String fullName;
     private String phone;
     private String email;

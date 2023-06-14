@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers;
+package Controllers.Authenticate;
 
+import DAL.EmployeeDAO;
+import DAL.UserDAO;
+import Model.Employee;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author dell
  */
-public class TestServlet extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +38,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +59,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/views/MainPage.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/Login.jsp").forward(request, response);
     }
 
     /**
@@ -69,7 +73,18 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        User user = new User();
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("pwd"));
+
+        UserDAO uDAO = new UserDAO();
+        user = uDAO.getEmployeeByEmailAndPwd(user);
+        if (user != null) {
+            request.getSession().setAttribute("user", user);
+            response.sendRedirect("home");
+        } else {
+            response.getWriter().print("Login Fail");
+        }
     }
 
     /**

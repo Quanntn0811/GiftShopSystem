@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAL;
 
 import java.sql.Connection;
@@ -10,19 +6,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author dell
- */
+
 public class DBContext {
     protected Connection connection;
     public DBContext()
     {
-        //Edit user, pass, url variables to fit your system configuration
         try {
             String user = "sa";
-            String pass = "123456";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=";
+            String pass = "12345";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=SWP391_QN";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException | SQLException ex) {
