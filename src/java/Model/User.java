@@ -2,40 +2,43 @@ package Model;
 
 import java.sql.Date;
 
-public class Employee {
-    private String employeeId;
+public class User {
+   private int customerId;
     private String fullName;
-    private Date dob;
     private String phone;
     private String email;
     private String password;
+    private Date dob;
     private String address;
+    private String avatar;
+    private Role role;
+    private User manager;
     private boolean status;
-    private Employee manager;
     private String description;
 
-    public Employee() {
+    public User() {
     }
 
-    public Employee(String employeeId, String fullName, Date dob, String phone, String email, String password, String address, boolean status, Employee manager, String description) {
-        this.employeeId = employeeId;
+    public User(int customerId, String fullName, String phone, String email, Date dob, String address, String avatar, Role role, User manager, boolean status, String description) {
+        this.customerId = customerId;
         this.fullName = fullName;
-        this.dob = dob;
         this.phone = phone;
         this.email = email;
-        this.password = password;
+        this.dob = dob;
         this.address = address;
-        this.status = status;
+        this.avatar = avatar;
+        this.role = role;
         this.manager = manager;
+        this.status = status;
         this.description = description;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFullName() {
@@ -44,14 +47,6 @@ public class Employee {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     public String getPhone() {
@@ -70,10 +65,6 @@ public class Employee {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -82,8 +73,44 @@ public class Employee {
         this.password = password;
     }
 
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public boolean isStatus() {
@@ -94,14 +121,6 @@ public class Employee {
         this.status = status;
     }
 
-    public Employee getManager() {
-        return manager;
-    }
-
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -109,11 +128,4 @@ public class Employee {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @Override
-    public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", fullName=" + fullName + ", dob=" + dob + ", phone=" + phone + ", email=" + email + ", password=" + password + ", address=" + address + ", status=" + status + ", manager=" + manager + ", description=" + description + '}';
-    }
-    
-    
 }
