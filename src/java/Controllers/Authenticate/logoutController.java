@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author dell
  */
-public class loginFacebookController extends HttpServlet {
+public class logoutController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +33,10 @@ public class loginFacebookController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginFacebookController</title>");  
+            out.println("<title>Servlet logoutController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginFacebookController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet logoutController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +53,8 @@ public class loginFacebookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getSession().setAttribute("account", null);
+        response.sendRedirect("home");
     } 
 
     /** 

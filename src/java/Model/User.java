@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model;
 
 import java.sql.Date;
@@ -7,6 +11,7 @@ public class User {
     private String fullName;
     private String phone;
     private String email;
+    private String emailID;
     private String password;
     private Date dob;
     private String address;
@@ -24,6 +29,21 @@ public class User {
         this.fullName = fullName;
         this.phone = phone;
         this.email = email;
+        this.dob = dob;
+        this.address = address;
+        this.avatar = avatar;
+        this.role = role;
+        this.manager = manager;
+        this.status = status;
+        this.description = description;
+    }
+
+    public User(int customerId, String fullName, String phone, String email, String emailID, Date dob, String address, String avatar, Role role, User manager, boolean status, String description) {
+        this.customerId = customerId;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.email = email;
+        this.emailID = emailID;
         this.dob = dob;
         this.address = address;
         this.avatar = avatar;
@@ -63,6 +83,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
     }
 
     public String getPassword() {
@@ -128,4 +156,7 @@ public class User {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    
+    
 }
