@@ -377,7 +377,7 @@
             </div>
         </section>
 
-        <%@ include file="new/AbsoluteBtn.jsp" %>
+        <%@ include file="Product/AbsoluteBtn.jsp" %>
         <%@ include file="../includes/footer.jsp" %> 
 
         <script>
