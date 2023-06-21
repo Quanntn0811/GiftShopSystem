@@ -1,18 +1,24 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model;
 
+/**
+ *
+ * @author dell
+ */
 public class NewArrival {
 
     private Product product;
-    private boolean status;
-    private String description;
+    private boolean deleteFlag;
 
     public NewArrival() {
     }
 
-    public NewArrival(Product product, boolean status, String description) {
+    public NewArrival(Product product, boolean deleteFlag) {
         this.product = product;
-        this.status = status;
-        this.description = description;
+        this.deleteFlag = deleteFlag;
     }
 
     public Product getProduct() {
@@ -23,19 +29,13 @@ public class NewArrival {
         this.product = product;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setDeleteFlag(boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String Description) {
-        this.description = Description;
-    }
+    
 }
