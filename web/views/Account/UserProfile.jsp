@@ -53,7 +53,7 @@
                             TRANG TÀI KHOẢN
                         </h3>
                         <p class="mt-4"><span style="font-weight: bold;">Họ tên:</span> ${sessionScope.account.fullName}</p>
-                        <p><span style="font-weight: bold;">Email:</span> ${sessionScope.account.fullName}</p>
+                        <p><span style="font-weight: bold;">Email:</span> ${sessionScope.account.email}</p>
                         <p><span style="font-weight: bold;">Phone:</span> ${sessionScope.account.phone}</p>
                         <p><span style="font-weight: bold;">Address:</span> ${sessionScope.account.address}</p>
                     </section>
