@@ -3,6 +3,10 @@
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+      <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>Controllers.test</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controllers.Authenticate.loginController</servlet-class>
