@@ -1,27 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model;
 
+/**
+ *
+ * @author dell
+ */
 public class Collection {
-    private int collectionId;
+    private int collectionID;
     private String collectionName;
+    private String link;
     private boolean status;
     private String description;
 
     public Collection() {
     }
 
-    public Collection(int collectionId, String collectionName, boolean status, String description) {
-        this.collectionId = collectionId;
+    public Collection(int collectionID, String collectionName, String link, boolean status, String description) {
+        this.collectionID = collectionID;
         this.collectionName = collectionName;
+        this.link = link;
         this.status = status;
         this.description = description;
     }
 
-    public int getCollectionId() {
-        return collectionId;
+    public int getCollectionID() {
+        return collectionID;
     }
 
-    public void setCollectionId(int collectionId) {
-        this.collectionId = collectionId;
+    public void setCollectionID(int collectionID) {
+        this.collectionID = collectionID;
     }
 
     public String getCollectionName() {
@@ -30,6 +40,14 @@ public class Collection {
 
     public void setCollectionName(String collectionName) {
         this.collectionName = collectionName;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public boolean isStatus() {
@@ -47,4 +65,8 @@ public class Collection {
     public void setDescription(String description) {
         this.description = description;
     }
+
+   
+    
+    
 }
