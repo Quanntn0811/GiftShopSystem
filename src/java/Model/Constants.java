@@ -2,11 +2,11 @@ package Model;
 
 public class Constants {
     
-    public static String GOOGLE_CLIENT_ID = "847156171544-m0tba90g6elh7sk3ggohrnlj184ija1t.apps.googleusercontent.com";
+    public static String GOOGLE_CLIENT_ID = "583964261490-qa8kt76ed9evd3l597jn9hmsnrm6s97q.apps.googleusercontent.com";
 
-    public static String GOOGLE_CLIENT_SECRET = "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";
+    public static String GOOGLE_CLIENT_SECRET = "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";
 
-    public static String GOOGLE_REDIRECT_URI = "http://localhost:9999/g4/loginEmail";
+    public static String GOOGLE_REDIRECT_URI = "http://localhost:9999/loginEmail";
 
     public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
 
