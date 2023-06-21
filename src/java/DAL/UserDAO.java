@@ -14,36 +14,6 @@ import java.util.logging.Logger;
 
 public class UserDAO extends DBContext {
 
-    public void insertUser(User user) {
-        try {
-            String sql = "INSERT INTO [User]\n"
-                    + "           ([FullName]\n"
-                    + "           ,[Email]\n"
-                    + "           ,[Password]\n"
-                    + "           ,[Phone]\n"
-                    + "           ,[DOB]\n"
-                    + "           ,[Address])\n"
-                    + "     VALUES\n"
-                    + "           (?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, user.getFullName());
-            stm.setString(2, user.getEmail());
-            stm.setString(3, user.getPassword());
-            stm.setString(4, user.getPhone());
-            stm.setDate(5, user.getDob());
-            stm.setString(6, user.getAddress());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
     public User doLogin(String email, String pwd) {
         try {
             String sql = "SELECT [UserID]\n"

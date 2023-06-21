@@ -281,7 +281,7 @@ crossorigin="anonymous"></script>
     }
 
     function getInformation() {
-        window.location.href = "userProfile";
+        window.location.href = "userInformation";
     }
 </script>
 
