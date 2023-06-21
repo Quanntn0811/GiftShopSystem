@@ -104,11 +104,11 @@
             </div>
             <div class="carousel-inner carousel-starter">
                 <div class="carousel-item active">
-                    <img src="https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045-2.jpg" class="custom-img"
+                    <img src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/slider_1.jpg?1681832246171" class="custom-img"
                          alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://baothainguyen.vn/file/oldimage/baothainguyen/UserFiles/image/d2(23).jpg"
+                    <img src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/slider_2.jpg?1681832246171"
                          class="custom-img" alt="...">
                 </div>
                 <div class="carousel-item">
@@ -128,30 +128,17 @@
         <!-- Carousel wrapper -->
         <div class="list-category">
             <div style="width: 2px; height: 80px; background-color: white;"></div>
-            <div class="category-item">
-                <img src="https://bizweb.dktcdn.net/thumb/compact/100/450/808/collections/10-37c9706f-413a-4123-b0d6-07905851440b.png?v=1648550713910"
-                     alt="for-him" style="width: 48px; height: 48px;" />
-                <p class="category-item-title">
-                    For him
-                </p>
-            </div>
-            <div style="width: 2px; height: 80px; background-color: white;"></div>
-            <div class="category-item">
-                <img src="https://bizweb.dktcdn.net/thumb/compact/100/450/808/collections/9-228daf39-c660-4d00-9cc0-b9bbdb8f0e1d.png?v=1648550696500"
-                     alt="for-him" style="width: 48px; height: 48px;" />
-                <p class="category-item-title">
-                    For her
-                </p>
-            </div>
-            <div style="width: 2px; height: 80px; background-color: white;"></div>
-            <div class="category-item">
-                <img src="https://bizweb.dktcdn.net/thumb/compact/100/450/808/collections/cuo-c-so-ng-thu-o-ng-nga-y.png?v=1648549034233"
-                     alt="for-him" style="width: 48px; height: 48px;" />
-                <p class="category-item-title">
-                    Thư giãn
-                </p>
-            </div>
-            <div style="width: 2px; height: 80px; background-color: white;"></div>
+            <c:forEach items="${collections}" var="c">
+                <div class="category-item text-center">
+                    <img src="${c.link}"
+                         alt="for-him" style="width: 48px; height: 48px;" /></br>
+                    <p class="category-item-title">
+                        ${c.collectionName}
+                    </p>
+                </div>
+                <div style="width: 2px; height: 80px; background-color: white;"></div>
+            </c:forEach>
+
         </div>
 
         <!-- New product -->
