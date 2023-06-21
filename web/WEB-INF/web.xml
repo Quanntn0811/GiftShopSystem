@@ -4,16 +4,8 @@
         <welcome-file>home</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>Controllers.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>Controllers.Authenticate.loginController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>test</servlet-name>
-        <servlet-class>Controllers.test</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loginEmailController</servlet-name>
@@ -63,10 +55,6 @@
         <servlet-name>OrderDetail</servlet-name>
         <servlet-class>Controllers.Order.OrderDetail</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
