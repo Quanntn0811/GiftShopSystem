@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream:web/views/MainPage.jsp
+=======
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+>>>>>>> Stashed changes:web/views/HomePage.jsp
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
