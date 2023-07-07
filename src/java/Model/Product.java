@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-/**
- *
- * @author dell
- */
 public class Product {
 
     private int productId;
@@ -25,7 +17,7 @@ public class Product {
     private Category category;
     private boolean isParent;
     private String description;
-    private String avatar;
+    private ArrayList<ImageProduct> images;
     private ArrayList<Product> children = new ArrayList<>();
 
     public Product() {
@@ -60,7 +52,7 @@ public class Product {
         this.description = description;
     }
 
-    public Product(int productId, String name, double price, int quantity, boolean status, Type classType, String classValue, Date createDate, Product parent, Category category, boolean isParent, String description, String avatar) {
+    public Product(int productId, String name, double price, int quantity, boolean status, Type classType, String classValue, Date createDate, Product parent, Category category, boolean isParent, String description, ArrayList<ImageProduct> images) {
         this.productId = productId;
         this.name = name;
         this.price = price;
@@ -73,18 +65,9 @@ public class Product {
         this.category = category;
         this.isParent = isParent;
         this.description = description;
-        this.avatar = avatar;
+        this.images = images;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    
     public int getProductId() {
         return productId;
     }
@@ -95,14 +78,6 @@ public class Product {
 
     public String getName() {
         return name;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public void setName(String name) {
@@ -149,6 +124,14 @@ public class Product {
         this.classValue = classValue;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public Product getParent() {
         return parent;
     }
@@ -179,6 +162,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<ImageProduct> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<ImageProduct> images) {
+        this.images = images;
     }
 
     public ArrayList<Product> getChildren() {
