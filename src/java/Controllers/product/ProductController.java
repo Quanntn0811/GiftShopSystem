@@ -123,9 +123,12 @@ public class ProductController extends HttpServlet {
         doGet(request, response);
     }
 
-    public void searchSubCategory(int subCategoryID, HttpServletRequest request, HttpServletResponse response)
+    public void searchTag(int tagID, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.subcategoryID = subCategoryID;
+        this.tagID = tagID;
+        request.getSession().setAttribute("categoryID", null);
+        request.getSession().setAttribute("tagID", tagID);
+        request.getSession().setAttribute("collectionID", null);
         request.getSession().setAttribute("textSearch", null);
         request.getSession().setAttribute("sortOption", -1);
         doGet(request, response);

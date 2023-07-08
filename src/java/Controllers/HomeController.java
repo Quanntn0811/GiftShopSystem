@@ -5,11 +5,15 @@
 package Controllers;
 
 import DAL.BestSellerDAO;
+import DAL.CategoryDAO;
 import DAL.CollectionDAO;
 import DAL.NewArrivalDAO;
+import DAL.TagDAO;
 import Model.BestSeller;
+import Model.Category;
 import Model.Collection;
 import Model.NewArrival;
+import Model.Tag;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -43,6 +47,17 @@ public class HomeController extends HttpServlet {
         CollectionDAO clDao = new CollectionDAO();
         ArrayList<Collection> collections = clDao.getAllCollection(true);
 
+        TagDAO tDao = new TagDAO();
+        ArrayList<Tag> tags = tDao.getAll();
+        
+        //get all categories belong to tag
+        for (Tag tag : tags) {
+            CategoryDAO cDao = new CategoryDAO();
+            ArrayList<Category> categories = cDao.getAllByTagID(tag.getTagId());
+            tag.setCategories(categories);
+        }
+
+
         //get all new arrival product
         NewArrivalDAO naDao = new NewArrivalDAO();
         ArrayList<NewArrival> newArrivals = naDao.getAllNew(false, true);
@@ -54,9 +69,12 @@ public class HomeController extends HttpServlet {
             request.setAttribute("msg", "Bạn đã đăng ký tài khoản thành công!");
             sesion.setAttribute("register", null);
         }
-        request.setAttribute("bestSellers", bestSellers);
-        request.setAttribute("collections", collections);
-        request.setAttribute("newArrivals", newArrivals);
+
+        request.getSession().setAttribute("tags", tags);
+        request.getSession().setAttribute("bestSellers", bestSellers);
+        request.getSession().setAttribute("bestSellers", bestSellers);
+        request.getSession().setAttribute("collections", collections);
+        request.getSession().setAttribute("newArrivals", newArrivals);
         request.getRequestDispatcher("views/HomePage.jsp").forward(request, response);
     }
 //    
