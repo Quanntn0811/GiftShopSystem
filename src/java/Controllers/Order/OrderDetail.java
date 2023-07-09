@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.product;
+package Controllers.Order;
 
-import Controllers.ReloadController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ListAllProductController extends ReloadController {
+public class OrderDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,10 +30,10 @@ public class ListAllProductController extends ReloadController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListAllProductController</title>");
+            out.println("<title>Servlet OrderDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListAllProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OrderDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -52,8 +51,7 @@ public class ListAllProductController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductController productController = new ProductController();
-        productController.listAllProduct(request, response);
+        request.getRequestDispatcher("views/Order/OrderDetails.jsp").forward(request, response);
     }
 
     /**

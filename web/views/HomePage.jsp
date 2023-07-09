@@ -463,7 +463,7 @@
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
             }
-
+          
             function viewProduct(id) {
                 document.getElementById("frm-product-details-" + id).submit();
             }
