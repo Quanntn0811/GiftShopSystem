@@ -159,33 +159,38 @@
                 <c:forEach items="${newArrivals}" var="na">
                     <div class="col-6 col-md-3 product-cart-wrapper">
                         <input type="hidden" value="${na.product.productId}" name="productID" id="productID${na.product.productId}">
-                            <input type="hidden" value="${na.product.productId}" name="productID">
-                            <div class="position-relative">
-                                <img src="${na.product.images.get(0).image}"
-                                     alt="new-prd" class="product-card-img w-100 h-auto cursor-pointer" onclick="viewProduct('${na.product.productId}')"/>
-                                <div class="love-prd">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                          d="M12 5C11.6604 4.60884 11.2646 4.26729 10.8278 3.9824C9.86267 3.35284 8.69792 3 7.5 3C4.42 3 2 5.37384 2 8.3951C2 9.46861 2.25574 10.488 2.69383 11.4578C4.0526 14.4686 7.16576 17.0093 9.8455 19.1963C10.617 19.8259 11.3526 20.4262 12 21C12.6474 20.4262 13.383 19.8259 14.1545 19.1963C16.8342 17.0093 19.9473 14.4687 21.3061 11.458C21.7442 10.4881 22 9.46866 22 8.3951C22 5.37384 19.58 3 16.5 3C15.3021 3 14.1373 3.35284 13.1722 3.9824C12.7354 4.26729 12.3396 4.60884 12 5ZM12 18.3699C12.3228 18.1024 12.6527 17.8326 12.9822 17.5633C13.2612 17.3351 13.5399 17.1073 13.8136 16.8813C14.9091 15.9769 15.9814 15.058 16.9309 14.095C18.106 12.9033 18.9793 11.7563 19.4879 10.6242C19.8233 9.8767 20 9.13633 20 8.3951C20 6.51455 18.5119 5 16.5 5C15.3116 5 14.2025 5.51373 13.5103 6.31111L12 8.05084L10.4897 6.31111C9.79748 5.51373 8.68843 5 7.5 5C5.48808 5 4 6.51455 4 8.3951C4 9.13633 4.17674 9.8767 4.51214 10.6242C5.02069 11.7563 5.89402 12.9033 7.06909 14.095C8.01864 15.058 9.09095 15.9769 10.1864 16.8813C10.4601 17.1073 10.7388 17.3351 11.0178 17.5633C11.3473 17.8326 11.6772 18.1024 12 18.3699Z"
-                                          fill="#333333"></path>
-                                    </svg>
-                                </div>
+                        <input type="hidden" value="${na.product.productId}" name="productID" id="productID${na.product.productId}">
+                        <div class="position-relative">
+                            <img src="${na.product.images.get(0).image}"
+                                 alt="new-prd" class="product-card-img w-100 h-auto cursor-pointer" onclick="viewProduct('${na.product.productId}')"/>
+                            <div class="love-prd">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M12 5C11.6604 4.60884 11.2646 4.26729 10.8278 3.9824C9.86267 3.35284 8.69792 3 7.5 3C4.42 3 2 5.37384 2 8.3951C2 9.46861 2.25574 10.488 2.69383 11.4578C4.0526 14.4686 7.16576 17.0093 9.8455 19.1963C10.617 19.8259 11.3526 20.4262 12 21C12.6474 20.4262 13.383 19.8259 14.1545 19.1963C16.8342 17.0093 19.9473 14.4687 21.3061 11.458C21.7442 10.4881 22 9.46866 22 8.3951C22 5.37384 19.58 3 16.5 3C15.3021 3 14.1373 3.35284 13.1722 3.9824C12.7354 4.26729 12.3396 4.60884 12 5ZM12 18.3699C12.3228 18.1024 12.6527 17.8326 12.9822 17.5633C13.2612 17.3351 13.5399 17.1073 13.8136 16.8813C14.9091 15.9769 15.9814 15.058 16.9309 14.095C18.106 12.9033 18.9793 11.7563 19.4879 10.6242C19.8233 9.8767 20 9.13633 20 8.3951C20 6.51455 18.5119 5 16.5 5C15.3116 5 14.2025 5.51373 13.5103 6.31111L12 8.05084L10.4897 6.31111C9.79748 5.51373 8.68843 5 7.5 5C5.48808 5 4 6.51455 4 8.3951C4 9.13633 4.17674 9.8767 4.51214 10.6242C5.02069 11.7563 5.89402 12.9033 7.06909 14.095C8.01864 15.058 9.09095 15.9769 10.1864 16.8813C10.4601 17.1073 10.7388 17.3351 11.0178 17.5633C11.3473 17.8326 11.6772 18.1024 12 18.3699Z"
+                                      fill="#333333"></path>
+                                </svg>
                             </div>
-                            <div class="action-prd-cart">
+                        </div>
+                        <fmt:formatNumber value="${na.product.price}" pattern="#,##0.000" var="formattedNumber" />
+                        ${formattedNumber}đ
+                        <div class="action-prd-cart">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#cartModal"
+                                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="addToCart('${na.product.productId}', '${na.product.name}', '${na.product.images.get(0).image}', '${na.product.price}', 1, '${na.product.quantity}')">                            
                                 <i class="fa-solid fa-cart-plus fa-lg"></i>
-                            </div>
+                            </button>
+                        </div>
 
-                            <div class="prd-name" onclick="viewProduct('${na.product.productId}')">
-                                ${na.product.name}
-                            </div>
-                            <div class="prd-description">
-                                ${na.product.description}
-                            </div>
-                            <div class="prd-price">
-                                <fmt:formatNumber value="${na.product.price}" pattern="#,##0.000" var="formattedNumber" />
-                                ${formattedNumber}đ
-                            </div>
+                        <div class="prd-name" onclick="viewProduct('${na.product.productId}')">
+                            ${na.product.name}
+                        </div>
+                        <div class="prd-description">
+                            ${na.product.description}
+                        </div>
+                        <div class="prd-price">
+                            <fmt:formatNumber value="${na.product.price}" pattern="#,##0.000" var="formattedNumber" />
+                            ${formattedNumber}đ
+                        </div>
                         </form>
                     </div>
                 </c:forEach>
@@ -215,7 +220,11 @@
                                 </div>
                             </div>
                             <div class="action-prd-cart">
-                                <i class="fa-solid fa-cart-plus fa-lg"></i>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#cartModal"
+                                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" 
+                                        onclick="addToCart('${bs.product.productId}', '${bs.product.name}', '${bs.product.images.get(0).image}', '${bs.product.price}', 1)">
+                                    <i class="fa-solid fa-cart-plus fa-lg"></i>
+                                </button>
                             </div>
 
                             <div class="prd-name" onclick="viewProduct('${bs.product.productId}')">
