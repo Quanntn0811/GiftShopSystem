@@ -158,7 +158,7 @@
             <div class="list-new-product row g-3">
                 <c:forEach items="${newArrivals}" var="na">
                     <div class="col-6 col-md-3 product-cart-wrapper">
-                        <input type="hidden" value="${na.product.productId}" name="productID" id="productID${na.product.productId}">
+                        <form id="frm-product-details-${na.product.productId}" action="productDetails" method="post">
                         <input type="hidden" value="${na.product.productId}" name="productID" id="productID${na.product.productId}">
                         <div class="position-relative">
                             <img src="${na.product.images.get(0).image}"
@@ -172,8 +172,6 @@
                                 </svg>
                             </div>
                         </div>
-                        <fmt:formatNumber value="${na.product.price}" pattern="#,##0.000" var="formattedNumber" />
-                        ${formattedNumber}đ
                         <div class="action-prd-cart">
                             <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#cartModal"
                                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="addToCart('${na.product.productId}', '${na.product.name}', '${na.product.images.get(0).image}', '${na.product.price}', 1, '${na.product.quantity}')">                            
@@ -445,7 +443,10 @@
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
             }
-
+            
+            function viewProduct(id) {
+                document.getElementById("frm-product-details-" + id).submit();
+            }
         </script>
     </body>
 </html>
