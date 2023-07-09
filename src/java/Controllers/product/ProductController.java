@@ -5,6 +5,7 @@
 package Controllers.product;
 
 import Controllers.Authenticate.BaseAuthenticationController;
+import Controllers.ReloadController;
 import DAL.CollectionDAO;
 import DAL.ProductDAO;
 import Model.Collection;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ProductController extends HttpServlet {
+public class ProductController extends ReloadController {
 
     int collectionID = -1;
     int categoryID = -1;
@@ -35,6 +36,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(
                     request.getParameter("page"));

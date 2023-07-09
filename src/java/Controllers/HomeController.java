@@ -34,7 +34,7 @@ import java.util.Arrays;
  *
  * @author dell
  */
-public class HomeController extends HttpServlet {
+public class HomeController extends ReloadController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
