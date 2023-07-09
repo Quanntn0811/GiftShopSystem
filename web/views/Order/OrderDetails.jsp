@@ -1,9 +1,3 @@
-<%-- 
-    Document   : OrderDetails.jsp
-    Created on : Jun 18, 2023, 6:29:59 PM
-    Author     : dell
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
