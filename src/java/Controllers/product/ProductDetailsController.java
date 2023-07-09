@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 
-public class ProductDetailsController extends HttpServlet {
+public class ProductDetailsController extends ReloadController {
 
     int productID = -1;
 
