@@ -1,13 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Controllers.product;
 
+import Controllers.ReloadController;
+import DAL.ImageProductDAO;
+import DAL.ProductDAO;
+import Model.Constants;
+import Model.ImageProduct;
+import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-public class ProductDetailsController extends HttpServlet {
+
+public class ProductDetailsController extends ReloadController {
+
+    int productID = -1;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,8 +61,20 @@ public class ProductDetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("views/Product/ProductDetails.jsp").forward(request, response);
+        if (productID != -1) {
+            ProductDAO pDao = new ProductDAO();
+            ImageProductDAO iDao = new ImageProductDAO();
 
+            Product product = pDao.getProductByID(productID, Constants.Active);
+            ArrayList<ImageProduct> images = iDao.getAllImageByProductID(productID, Constants.DeleteFalse);
+
+            request.setAttribute("product", product);
+            request.setAttribute("images", images);
+
+            request.getRequestDispatcher("views/Product/ProductDetails.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("product");
+        }
     }
 
     /**
@@ -62,7 +88,12 @@ public class ProductDetailsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if (request.getParameter("productID") != null) {
+            productID = Integer.parseInt(request.getParameter("productID"));
+            doGet(request, response);
+        } else {
+            response.sendRedirect("product");
+        }
     }
 
     /**
