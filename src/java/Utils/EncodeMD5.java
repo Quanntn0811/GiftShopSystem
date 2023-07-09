@@ -17,14 +17,19 @@ import java.util.logging.Logger;
  * @author dell
  */
 public class EncodeMD5 {
-    public String EncoderMD5(String input){
+
+    public String EncoderMD5(String input) {
         try {
+            // converts the input string to a byte array,
             MessageDigest md = MessageDigest.getInstance("MD5");
 
             byte[] inputBytes = input.getBytes();
+            //computes the hash
             byte[] hashBytes = md.digest(inputBytes);
 
             StringBuilder sb = new StringBuilder();
+
+            // convert to a hexadecimal string representation
             for (byte b : hashBytes) {
                 sb.append(String.format("%02x", b));
             }
@@ -35,9 +40,10 @@ public class EncodeMD5 {
         }
         return null;
     }
-    
+
     public static void main(String[] args) {
         EncodeMD5 encode = new EncodeMD5();
         System.out.println(encode.EncoderMD5("123@123"));
+
     }
 }
