@@ -4,7 +4,6 @@
  */
 package Controllers.product;
 
-import Controllers.Authenticate.BaseAuthenticationController;
 import Controllers.ReloadController;
 import DAL.CollectionDAO;
 import DAL.ProductDAO;
@@ -17,8 +16,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class ProductController extends ReloadController {
 
@@ -26,7 +23,6 @@ public class ProductController extends ReloadController {
     int categoryID = -1;
     int tagID = -1;
     public static String header = null;
-    private int page = 1;
     private int recordsPerPage = 5;
     double minPrice = 0;
     double maxPrice = 1000000000;
@@ -37,6 +33,7 @@ public class ProductController extends ReloadController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.doGet(request, response);
+        int page = 1;
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(
                     request.getParameter("page"));
@@ -60,11 +57,11 @@ public class ProductController extends ReloadController {
         }
 
         ProductDAO pDao = new ProductDAO();
-        
+
         ArrayList<Product> products = pDao.getAllProductParent((page - 1) * recordsPerPage,
                 recordsPerPage, collectionID, categoryID, tagID, textSearch,
                 minPrice, maxPrice, true, sortOption);
-        
+
         int noOfRecords = pDao.getNoOfRecordsParent(collectionID, categoryID, tagID, textSearch, minPrice, maxPrice, true);
 
         int noOfPages = (int) Math.ceil((double) noOfRecords
@@ -76,7 +73,7 @@ public class ProductController extends ReloadController {
 
         request.getSession().setAttribute("minPrice", minPrice);
         request.getSession().setAttribute("maxPrice", maxPrice);
-        
+
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
         request.setAttribute("noOfRecords", noOfRecords);
@@ -108,20 +105,23 @@ public class ProductController extends ReloadController {
         }
     }
 
-
     public void searchCollection(int collectionID, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         this.collectionID = collectionID;
+        request.getSession().setAttribute("categoryID", null);
+        request.getSession().setAttribute("tagID", null);
+        request.getSession().setAttribute("collectionID", collectionID);
         request.getSession().setAttribute("textSearch", null);
-        request.getSession().setAttribute("sortOption", -1);
         doGet(request, response);
     }
 
     public void searchCategory(int categoryID, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         this.categoryID = categoryID;
+        request.getSession().setAttribute("categoryID", categoryID);
+        request.getSession().setAttribute("tagID", null);
+        request.getSession().setAttribute("collectionID", null);
         request.getSession().setAttribute("textSearch", null);
-        request.getSession().setAttribute("sortOption", -1);
         doGet(request, response);
     }
 
@@ -132,21 +132,34 @@ public class ProductController extends ReloadController {
         request.getSession().setAttribute("tagID", tagID);
         request.getSession().setAttribute("collectionID", null);
         request.getSession().setAttribute("textSearch", null);
-        request.getSession().setAttribute("sortOption", -1);
         doGet(request, response);
     }
 
     public void searchByText(String textSearch, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().setAttribute("sortOption", -1);
         this.textSearch = textSearch;
+        request.getSession().setAttribute("categoryID", null);
+        request.getSession().setAttribute("tagID", null);
+        request.getSession().setAttribute("collectionID", null);
+        request.getSession().setAttribute("textSearch", textSearch);
         doGet(request, response);
     }
 
     void listAllProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getSession().setAttribute("categoryID", null);
+        request.getSession().setAttribute("tagID", null);
+        request.getSession().setAttribute("collectionID", null);
         request.getSession().setAttribute("textSearch", null);
-        request.getSession().setAttribute("sortOption", -1);
+        collectionID = -1;
+        categoryID = -1;
+        tagID = -1;
+        header = null;
+        recordsPerPage = 5;
+        minPrice = 0;
+        maxPrice = 1000000000;
+        textSearch = "";
+        sortOption = -1;
         doGet(request, response);
     }
 }
