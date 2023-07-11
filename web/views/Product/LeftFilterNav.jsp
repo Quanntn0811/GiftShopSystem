@@ -1,3 +1,5 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!--Left Filter Wrapper-->
@@ -65,19 +67,21 @@
             <div class="wrapper">
                 <div class="price-input">
                     <div class="field">
-                        <input type="number" class="input-min price" name="minPrice" value="0" style="border: none;outline: none"> 
+                        <fmt:formatNumber value="${sessionScope.minPrice}" pattern="#,##0.000" var="formatMin" />
+                        <input type="number" class="input-min price" name="minPrice" value="${formatMin}" style="border: none;outline: none"> 
                     </div>
                     <div class="separator">-</div>
                     <div class="field">
-                        <input type="number" class="input-max price" name="maxPrice" value="10000000" style="border: none;outline: none">đ
+                        <fmt:formatNumber value="${sessionScope.maxPrice}" pattern="#,##0.000" var="formatMax" />
+                        <input type="text" class="input-max price" name="maxPrice" value="${formatMax}" style="border: none; outline: none">đ
                     </div>
                 </div>
                 <div class="slider">
                     <div class="progress"></div>
                 </div>
                 <div class="range-input">
-                    <input type="range" class="range-min" min="0" max="10000000" value="0" step="100">
-                    <input type="range" class="range-max" min="0" max="10000000" value="100000000"
+                    <input type="range" class="range-min" min="0" max="10000000" value="${sessionScope.minPrice}" step="100">
+                    <input type="range" class="range-max" min="0" max="10000000" value="${sessionScope.maxPrice}"
                            step="100">
                 </div>
             </div>
