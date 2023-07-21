@@ -341,7 +341,25 @@ crossorigin="anonymous"></script>
                     //tinh toan lai gia tien dua tren so luong hang moi
                     var existingQuantity = parseInt(parts[1]);
 
+                    var totalQuantity = existingQuantity + parseInt(quantity);
 
+                    var totalPrice = parseFloat(price) * totalQuantity;
+                    //fomart lai thanh dinh dang xx.xxx
+                    var formattedPrice = totalPrice.toFixed(3);
+
+                    var existCart = document.getElementById('product_' + id);
+                    //thay doi gia cua san pham
+                    existCart.querySelector('#productPrice').innerHTML = formattedPrice.toString();
+                    //thay doi so luong cua san pham
+                    existCart.querySelector('#productQuantity_' + id).value = totalQuantity.toString();
+
+
+                    //cap nhat lai so luong san pham
+                    cartValue = cartValue.replace(id + "-" + existingQuantity, id + "-" + totalQuantity);
+
+                    //ap nhat lai cokies
+                    document.cookie = cookiesName + "=" + cartValue + "; path=/";
+                    isExist = true;
 
                     //cap nhat lai tong hoa don
                     var newPrice = parseFloat(price) * parseInt(quantity);
@@ -366,7 +384,11 @@ crossorigin="anonymous"></script>
     function getCookie(cookieName) {
         var name = cookieName + '=';
         var decodedCookie = decodeURIComponent(document.cookie);
-
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i].trim();
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
             }
         }
         return '';
@@ -383,7 +405,16 @@ crossorigin="anonymous"></script>
         //thay doi ten cua san pham
         newDiv.querySelector('#productName').innerHTML = name;
         //thay doi anh san pham
-
+        newDiv.querySelector('#productImage').src = image;
+        //thay doi gia cua san pham
+        var valuePrice = parseFloat(price);
+        var formattedPrice = valuePrice.toFixed(3);
+        newDiv.querySelector('#productPrice').innerHTML = formattedPrice.toString();
+        newDiv.querySelector('#productQuantity').id = 'productQuantity_' + id;
+        newDiv.querySelector('#productValue').id = 'productValue_' + id;
+        newDiv.querySelector('#deleteProduct').id = 'deleteProduct_' + id;
+        //thay doi so luong cua san pham
+        newDiv.querySelector('#productQuantity_' + id).value = quantity;
 
         //them su kien thay doi so luong
         newDiv.querySelector('#productQuantity_' + id).addEventListener('input', function () {
@@ -397,7 +428,14 @@ crossorigin="anonymous"></script>
             newDiv.querySelector('#productValue_' + id).innerHTML = typeValue;
         }
         // thay doi ten cua khoi div
+        newDiv.id = 'product_' + id;
 
+        // Hien thi khoi div
+        newDiv.style.display = 'block';
+
+        var productIDValue = id + "-" + quantity;
+        //tao khoi div trong gio hang
+        targetDiv.appendChild(newDiv);
         // Concatenate the productIDValue with the existing cartValue
         var newCartValue = cartValue + "_" + productIDValue;
         //them vao cookie
