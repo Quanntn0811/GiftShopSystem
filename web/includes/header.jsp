@@ -421,7 +421,18 @@ crossorigin="anonymous"></script>
         var input = document.getElementById('productQuantity_' + id);
         var price = parseFloat(priceString);
 
-
+        var newQuantity = input.value;
+        var existingQuantity = 0;
+        var cartValue = getCookie(cookiesName) || '';
+        if (cartValue !== '') {
+            //Tach chuoi san phan trong cart
+            var products = cartValue.split("_");
+            //duyet tu dau den cuoi mang
+            for (var i = 0; i < products.length; i++) {
+                //lay ra thong tin cua tung san pham trong cart
+                var product = products[i];
+                //tach chuoi
+                var parts = product.split("-");
                 //kiem tra xem id da ton tai hay chua
                 if (parts[0] === id) {
                     //lay thong tin so luong cu
@@ -445,8 +456,6 @@ crossorigin="anonymous"></script>
                     document.cookie = cookiesName + "=" + cartValue + "; path=/";
 
                     //cap nhat lai tong hoa don
-                    totalPrice = updateTotalPrice(changePrice);
-                    printTotalPrice(totalPrice.toString());
                     break;
                 }
             }
