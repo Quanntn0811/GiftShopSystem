@@ -456,6 +456,8 @@ crossorigin="anonymous"></script>
                     document.cookie = cookiesName + "=" + cartValue + "; path=/";
 
                     //cap nhat lai tong hoa don
+                    totalPrice = updateTotalPrice(changePrice);
+                    printTotalPrice(totalPrice.toString());
                     break;
                 }
             }
