@@ -458,7 +458,15 @@ crossorigin="anonymous"></script>
         if (div) {
             div.remove();
             var cartValue = getCookie(cookiesName) || '';
-  
+            if (cartValue !== '') {
+                //Tach chuoi san phan trong cart
+                var products = cartValue.split("_");
+                //duyet tu dau den cuoi mang
+                for (var i = 0; i < products.length; i++) {
+                    //lay ra thong tin cua tung san pham trong cart
+                    var product = products[i];
+                    //tach chuoi
+                    var parts = product.split("-");
                     //kiem tra xem id da ton tai hay chua
                     if (parts[0] === id) {
 
