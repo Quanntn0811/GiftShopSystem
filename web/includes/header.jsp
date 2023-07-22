@@ -197,15 +197,6 @@ crossorigin="anonymous"></script>
                                        data-bs-target="#exampleModalCenteredScrollable" style="cursor: pointer;">Sản
                                         phẩm</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="premium">Premium</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="notFound">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="notFound">Story</a>
-                                </li>
                             </ul>
                         </div>
                     </div>

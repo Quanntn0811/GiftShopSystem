@@ -18,7 +18,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-
+/**
+ *
+ * @author dell
+ */
 public class ProductDetailsController extends ReloadController {
 
     int productID = -1;
@@ -61,6 +64,7 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
         if (productID != -1) {
             ProductDAO pDao = new ProductDAO();
             ImageProductDAO iDao = new ImageProductDAO();
@@ -106,4 +110,9 @@ public class ProductDetailsController extends ReloadController {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        ImageProductDAO iDao = new ImageProductDAO();
+        ArrayList<ImageProduct> images = iDao.getAllImageByProductID(1, Constants.DeleteFalse);
+        System.out.println(images.get(0).getImage());
+    }
 }
