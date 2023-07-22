@@ -15,6 +15,7 @@ crossorigin="anonymous"></script>
     }
 </style>
 <link href="../css/layout.css" rel="stylesheet" type="text/css"/>
+
 <!-- header.jsp -->
 <header class="header d-flex flex-column">
     <div class="middle-header border border-bottom-1 order-2 order-md-1">
@@ -144,8 +145,8 @@ crossorigin="anonymous"></script>
                                         </div>
                                     </c:forEach>
                                 </div>
+                                
                                 <!-- List items in Cart Will Show here -->
-
                                 <div class="modal-footer d-block w-100">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h6>Tổng tiền:</h6>
@@ -165,6 +166,8 @@ crossorigin="anonymous"></script>
                 </div>
             </div>
         </div>
+        
+        <!-- navbar -->
         <div class="site-nav border border-bottom-1 order-1 order-md-2">
             <div class="container-navbar">
                 <nav class="navbar navbar-expand-lg">
