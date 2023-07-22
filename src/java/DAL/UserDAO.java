@@ -14,11 +14,42 @@ import java.util.logging.Logger;
 
 public class UserDAO extends DBContext {
 
-    public User doLogin(String email, String pwd) {
+    public void insertUser(User user) {
+        try {
+            String sql = "INSERT INTO [User]\n"
+                    + "           ([FullName]\n"
+                    + "           ,[Email]\n"
+                    + "           ,[Password]\n"
+                    + "           ,[Phone]\n"
+                    + "           ,[DOB]\n"
+                    + "           ,[Address])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getFullName());
+            stm.setString(2, user.getEmail());
+            stm.setString(3, user.getPassword());
+            stm.setString(4, user.getPhone());
+            stm.setDate(5, user.getDob());
+            stm.setString(6, user.getAddress());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+        public User doLogin(String email, String pwd) {
         try {
             String sql = "SELECT [UserID]\n"
                     + "      ,[FullName]\n"
                     + "      ,[Email]\n"
+                    + "      ,[EmailID]\n"
                     + "      ,[Phone]\n"
                     + "      ,[DOB]\n"
                     + "      ,[Address]\n"
@@ -44,6 +75,7 @@ public class UserDAO extends DBContext {
                         rs.getString("FullName"),
                         rs.getString("Phone"),
                         rs.getString("Email"),
+                        rs.getString("EmailID"),
                         rs.getDate("DOB"),
                         rs.getString("Address"),
                         rs.getString("Avatar"),
@@ -151,11 +183,5 @@ public class UserDAO extends DBContext {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        UserDAO dao = new UserDAO();
-        User user = dao.doLogin("cus1@gmail.com", "53e6086284353cb73d4979f08537d950");
-        System.out.println(user);
     }
 }

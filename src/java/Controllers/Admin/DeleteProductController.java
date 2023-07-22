@@ -2,12 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Authenticate;
+package Controllers.Admin;
 
-import Controllers.ReloadController;
-import DAL.UserDAO;
-import Model.User;
-import Utils.EncodeMD5;
+import DAL.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author dell
  */
-public class loginController extends ReloadController {
+public class DeleteProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +35,10 @@ public class loginController extends ReloadController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");
+            out.println("<title>Servlet DeleteProductController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,16 +56,8 @@ public class loginController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(request, response);
-        request.getRequestDispatcher("/views/Login.jsp").forward(request, response);
     }
 
-//    public static void main(String[] args) {
-//        EncodeMD5 encode = new EncodeMD5();
-//        UserDAO uDAO = new UserDAO();
-//        User user = uDAO.doLogin("cus1@gmail.com", encode.EncoderMD5("123@123"));
-//        System.out.println(user);
-//    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -80,26 +69,10 @@ public class loginController extends ReloadController {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pwd = request.getParameter("pwd");
-
-        EncodeMD5 encode = new EncodeMD5();
-        String encodePwd = encode.EncoderMD5(pwd);
-
-        UserDAO uDAO = new UserDAO();
-        User user = uDAO.doLogin(email, encodePwd);
-        if (user != null) {
-            if (user.getRole().getId() == 1) {
-                request.getSession().setAttribute("account", user);
-                response.sendRedirect("listAllProductAdmin");
-            } else {
-                request.getSession().setAttribute("account", user);
-                response.sendRedirect("home");
-            }
-        } else {
-            request.setAttribute("isFail", true);
-            request.getRequestDispatcher("views/Login.jsp").forward(request, response);
-        }
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        ProductDAO pDao = new ProductDAO();
+        pDao.delete(productID);
+        response.sendRedirect("listAllProductAdmin");
     }
 
     /**
@@ -113,10 +86,7 @@ public class loginController extends ReloadController {
     }// </editor-fold>
 
     public static void main(String[] args) {
-        UserDAO uDAO = new UserDAO();
-        EncodeMD5 encode = new EncodeMD5();
-        String encodePwd = encode.EncoderMD5("123@123");
-        User user = uDAO.doLogin("admin@gmail.com", encodePwd);
-        System.out.println(user.getRole().getId());
+        ProductDAO pDao = new ProductDAO();
+        pDao.delete(1);
     }
 }
