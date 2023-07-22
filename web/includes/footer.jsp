@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
     <!-- footer.jsp -->
-    <footer class="text-center text-lg-start" style="background-color: #fafafa">
+    <footer class="text-center text-lg-start" style="background-color: #fafafa; margin-top: 20px">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
             <!-- Section: Links -->

@@ -13,9 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kojer
+ * @author dell
  */
-
 public class SearchByCategoryController extends HttpServlet {
 
     /**
@@ -32,7 +31,7 @@ public class SearchByCategoryController extends HttpServlet {
         int categoryID = Integer.parseInt(request.getParameter("categoryID"));
         ProductController productController = new ProductController();
         productController.searchCategory(categoryID, request, response);
-        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
