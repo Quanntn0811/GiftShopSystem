@@ -13,9 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kojer
+ * @author dell
  */
-
 public class SearchByTagController extends HttpServlet {
 
     /**

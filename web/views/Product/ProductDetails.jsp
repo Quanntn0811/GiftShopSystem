@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,7 @@
         <title>Product Detail</title>
         <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/backtotop.css" rel="stylesheet" type="text/css"/>
+        <script src="../../js/script.js" type="text/javascript"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <style>
@@ -62,13 +64,29 @@
                             <!-- Slides -->
                             <div class="carousel-inner mb-5">
                                 <div class="carousel-item active" style="height: 400px; width: 100%;">
-                                    <img src="${images.get(0).image}"
-                                         class="w-100 h-100 object-fit-cover" alt="..." />
+                                    <c:set var="mainString" value="${images.get(i).image}" />
+                                    <c:set var="subString" value="https" />
+                                    <c:if test="${fn:contains(mainString, subString)}">
+                                        <img src="${images.get(0).image}"
+                                             class="w-100 h-100 object-fit-cover" alt="..." />
+                                    </c:if>
+                                    <c:if test="${fn:contains(mainString, subString) == false}">
+                                        <img src="../../images/${images.get(i).image}"
+                                             class="w-100 h-100 object-fit-cover" alt="..." />
+                                    </c:if>
                                 </div>
                                 <c:forEach var="i" begin="1" step="1" end="${images.size()-1}">
                                     <div class="carousel-item" style="height: 400px; width: 100%;">
-                                        <img src="${images.get(i).image}"
-                                             class="w-100 h-100 object-fit-cover" alt="..." />
+                                        <c:set var="mainString" value="${images.get(i).image}" />
+                                        <c:set var="subString" value="https" />
+                                        <c:if test="${fn:contains(mainString, subString)}">
+                                            <img src="${images.get(i).image}"
+                                                 class="w-100 h-100 object-fit-cover" alt="..." />
+                                        </c:if>
+                                        <c:if test="${fn:contains(mainString, subString) == false}">
+                                            <img src="../../images/${images.get(i).image}"
+                                                 class="w-100 h-100 object-fit-cover" alt="..." />
+                                        </c:if>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -92,9 +110,18 @@
                                 <c:forEach var="i" begin="0" step="1" end="${images.size()-1}">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}"
                                             class="active" aria-current="true" aria-label="Slide ${i+1}" style="width: 100px;">
-                                        <img class="d-block w-100"
-                                             src="${images.get(i).image}"
-                                             class="img-fluid" />
+                                        <c:set var="mainString" value="${images.get(i).image}" />
+                                        <c:set var="subString" value="https" />
+                                        <c:if test="${fn:contains(mainString, subString)}">
+                                            <img class="d-block w-100"
+                                                 src="${images.get(i).image}"
+                                                 class="img-fluid" />
+                                        </c:if>
+                                        <c:if test="${fn:contains(mainString, subString) == false}">
+                                            <img class="d-block w-100"
+                                                 src="../../images/${images.get(i).image}"
+                                                 class="img-fluid" />
+                                        </c:if>
                                     </button>
                                 </c:forEach>
                             </div>
@@ -205,14 +232,15 @@
                         <!-- if else to show each case, if have product, show below. If out of stock, show sold out -->
                         <div class="mt-3" id="show_buy">
                             <div class="mb-3">
-                                <input type="number" class="input_cart_width" name="qty" value="1" min="1" id="quantityBuy">
+                                <input type="number" class="input_cart_width" onkeydown="handleKeyDown(event)" onpaste="handlePaste(event)"
+                                       name="qty" value="1" min="1" id="quantityBuy">
                             </div>
                             <div class="d-flex gap-3 align-items-center">
-                                <button class="btn btn-outline-dark btn-lg custom_btn_add navbar-toggler" 
+                                <button class="btn btn-outline-dark btn-lg custom_btn_add" 
                                         data-bs-toggle="modal" data-bs-target="#cartModal"
                                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
                                         onclick="addToCartDetail('${product.name}', '${product.images.get(0).image}')">Thêm vào giỏ hàng</button>
-                                <button class="btn btn-danger btn-lg custom_btn_buynow">Mua ngay</button>
+                                <button class="btn btn-danger btn-lg custom_btn_buynow" onclick="buyNow('${product.name}', '${product.images.get(0).image}')">Mua ngay</button>
                             </div>
                         </div>
                         <div class="mt-3" id="show_out">
@@ -573,6 +601,11 @@
             function addToCartDetail(name, image) {
                 var quantity = document.getElementById('quantityBuy').value;
                 addToCart(productID, name, image, priceValue, quantity, typeValue);
+            }
+            function buyNow(name, image) {
+                var quantity = document.getElementById('quantityBuy').value;
+                addToCart(productID, name, image, priceValue, quantity, typeValue);
+                window.location.href = "orderCustomer";
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
