@@ -35,8 +35,5 @@ public class BestSeller {
     public void setDeleteFlag(boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
     }
-
-   
-    
-    
+  
 }
