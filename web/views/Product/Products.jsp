@@ -16,6 +16,7 @@
         <script src="https://kit.fontawesome.com/8d39de38b8.js" crossorigin="anonymous"></script>
     </head>
     <body>
+        <!-- Header -->
         <%@ include file="../../includes/header.jsp" %>
         <div>
             <div class="all-collections-wrapper container-home">
@@ -107,7 +108,6 @@
                             </div>
                         </c:forEach>
 
-
                         <div class="d-flex justify-content-center mt-5">
                             <nav aria-label="Page navigation example col-12">
                                 <ul class="pagination">
@@ -149,9 +149,10 @@
             </div>
             <%@ include file="AbsoluteBtn.jsp" %>
         </div>
+        
+        <!-- Footer -->
         <%@ include file="../../includes/footer.jsp" %>
-
-
+        
         <script>
             //Get the button
             let mybutton = document.getElementById("btn-back-to-top");
@@ -177,6 +178,7 @@
             }
 
         </script>
+        
         <script>
             const rangeInput = document.querySelectorAll(".range-input input"),
                     priceInput = document.querySelectorAll(".price-input input"),
@@ -246,7 +248,6 @@
                 document.getElementById("frm-product-details-" + id).submit();
             }
         </script>
-
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
