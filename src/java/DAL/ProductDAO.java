@@ -137,53 +137,7 @@ public class ProductDAO extends DBContext {
         return null;
     }
 
-    public ArrayList<Product> getAllProductParent(boolean status) {
-        ArrayList<Product> list = new ArrayList<>();
-        try {
-            String sql = "SELECT *\n"
-                    + "FROM [Products] Where IsParent = 1 And Status = ?";
-
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setBoolean(1, status);
-            ResultSet rs = stm.executeQuery();
-
-            TypeDAO tDao = new TypeDAO();
-            CategoryDAO cDao = new CategoryDAO();
-            ImageProductDAO imageDao = new ImageProductDAO();
-
-            Product product = new Product();
-            Category category = new Category();
-            Type type = new Type();
-            ArrayList<ImageProduct> images = new ArrayList<>();
-
-            while (rs.next()) {
-
-                type = tDao.getTypeByID(rs.getInt("ClassType"));
-                category = cDao.getCategoryByID(rs.getInt("CategoryId"));
-
-                product = new Product();
-                product.setProductId(rs.getInt("ProductId"));
-                product.setName(rs.getString("Name"));
-                product.setPrice(rs.getDouble("Price"));
-                product.setQuantity(rs.getInt("Quantity"));
-                product.setStatus(status);
-                product.setClassType(type);
-                product.setClassValue(rs.getString("ClassValue"));
-                product.setCreateDate(rs.getDate("createDate"));
-                product.setCategory(category);
-                product.setIsParent(Constants.Parent);
-                product.setDescription(rs.getString("Description"));
-
-                images = imageDao.getImageByProductID(product.getProductId(), Constants.DeleteFalse);
-                product.setImages(images);
-
-                list.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+    
 
     public ArrayList<Product> getAllProductParent(int offset, int recordsPerPage,
             int collectionID, int categoryID, int tagID, String textSearch,

@@ -27,7 +27,7 @@ public class ProductController extends ReloadController {
     int categoryID = -1;
     int tagID = -1;
     public static String header = null;
-    private int recordsPerPage = 5;
+    private int recordsPerPage = 6;
     double minPrice = 0;
     double maxPrice = 1000000000;
     String textSearch = "";
@@ -89,16 +89,6 @@ public class ProductController extends ReloadController {
         request.setAttribute("textSearch", textSearch);
         request.getRequestDispatcher("views/Product/Products.jsp").forward(request, response);
 
-    }
-//
-//
-
-    public static void main(String[] args) {
-        ProductDAO pDao = new ProductDAO();
-        ArrayList<Product> products = pDao.getAllProductParent(0,
-                5, -1, -1, -1, "", 0.0, 250, true, -1);
-        int noOfRecords = pDao.getNoOfRecordsParent(-1, 3, -1, "", 0, 250, true);
-        System.out.println(products.size());
     }
 
     @Override
@@ -169,7 +159,7 @@ public class ProductController extends ReloadController {
         categoryID = -1;
         tagID = -1;
         header = null;
-        recordsPerPage = 5;
+        recordsPerPage = 6;
         minPrice = 0;
         maxPrice = 1000000000;
         textSearch = "";

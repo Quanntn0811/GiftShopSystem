@@ -53,7 +53,10 @@
     </head>
 
     <body>
+        <!-- Header -->
         <%@ include file="../../includes/header.jsp" %>
+
+        <!-- Main -->
         <div>
             <div class="container-home"
                  style="padding-left: 64px; padding-right: 64px; padding-top: 60px; padding-bottom: 60px; width: 100%;">
@@ -129,6 +132,7 @@
                         </div>
                         <!-- Carousel wrapper -->
                     </div>
+
                     <div class="col-md-6 col-12">
                         <div style="font-size: 18px; color: #333; margin-bottom: 10px; font-weight: bold;">
                             ĐANG CẬP NHẬT
@@ -263,9 +267,6 @@
                             nét đến từng chi tiết.
                             Thích hợp dùng để làm móc chìa khóa hoặc trang trí túi, balo đều xinh hết nấc.
                         </p>
-                        <p style="margin-top: 16px; font-weight: 600; margin-bottom: 4px;">Thông tin sản phẩm</p>
-                        <p style="max-width: 700px; width: 100%; color: #777777; font-size: 14px; line-height: 24px;">More
-                            detail about product</p>
                     </div>
                     <div style="height: 1px; width: 100%; background-color: #33333330;"></div>
 
@@ -487,8 +488,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Button back to top -->
             <%@ include file="AbsoluteBtn.jsp" %>
         </div>
+
+        <!-- Footer -->
         <%@ include file="../../includes/footer.jsp" %>
         <script>
             let items = document.querySelectorAll('.carousel .product__item');
@@ -506,9 +511,8 @@
                     next = next.nextElementSibling;
                 }
             });
-
-
         </script>
+
         <script>
             var productID = '<c:out value="${product.productId}"/>';
             var typeValue = '<c:out value="${product.classValue}"/>';
