@@ -28,7 +28,7 @@
                          <c:if test="${sessionScope.textSearch == null || sessionScope.textSearch == ''}">
                              col-xl-9 col-lg-9
                          </c:if>
-                         col-md-12 col-sm-12 col-12 row">
+                         col-md-12 col-sm-12 col-12 row" style="row-gap: 20px;">
                         <c:if test="${products.size() == 0}">
                             <div class="w-100 d-flex justify-content-center">
                                 <p class="fw-bold fs-4">Không tìm thấy sản phẩm nào</p> 
