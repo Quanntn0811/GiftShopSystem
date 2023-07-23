@@ -40,7 +40,7 @@ public class ImageProductDAO extends DBContext {
                     + "left join Image_Product img\n"
                     + "on p.ProductId = img.productID\n"
                     + "Where p.ProductId = ? or ParentId = ?\n"
-                    + "and deleteFlag = ?";
+                    + "and img.deleteFlag = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, productID);
             stm.setInt(2, productID);
@@ -55,5 +55,37 @@ public class ImageProductDAO extends DBContext {
             Logger.getLogger(ImageProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    public void insert(ImageProduct image) {
+        try {
+            String sql = "INSERT INTO [dbo].[Image_Product]\n"
+                    + "           ([ProductID]\n"
+                    + "           ,[image]\n"
+                    + "           ,[deleteFlag])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, image.getProductID());
+            stm.setString(2, image.getImage());
+            stm.setBoolean(3, image.isDeleteFlag());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImageProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void delete(int productID) {
+        try {
+            String sql = "DELETE FROM [dbo].[Image_Product]\n"
+                    + "      WHERE ProductID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, productID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ImageProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
