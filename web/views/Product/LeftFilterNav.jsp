@@ -4,6 +4,7 @@
 
 <!--Left Filter Wrapper-->
 <div class="list-filter-left-content d-none d-lg-block col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+    <!-- Collection section -->
     <div class="mb-3">
         <c:forEach items="${collections}" var="c">
             <a class="text-decoration-none text-black" href="searchController?collectionID=${c.collectionID}">
@@ -15,52 +16,8 @@
         </a>
     </div>
     <div style="height: 1px; width: 100%; background-color: #00000030; margin-bottom: 16px;"></div>
-    <div class="mb-3">
-        <h6 class="text-uppercase">Cấp độ thương hiệu</h6>
-        <ul style="padding-left: 0;">
-            <li class="list-group-item">
-                <label class="d-flex align-items-center gap-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    <img
-                        src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/5-sao.svg?1678953238323" />
-                    5 sao
-                </label>
-            </li>
-            <li class="list-group-item d-flex align-items-center gap-2">
-                <label class="d-flex align-items-center gap-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    <img
-                        src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/4-sao.svg?1678953238323" />
-                    4 sao
-                </label>
-            </li>
-            <li class="list-group-item d-flex align-items-center gap-2">
-                <label class="d-flex align-items-center gap-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    <img
-                        src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/3-sao.svg?1678953238323" />
-                    3 sao
-                </label>
-            </li>
-            <li class="list-group-item d-flex align-items-center gap-2">
-                <label class="d-flex align-items-center gap-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    <img
-                        src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/2-sao.svg?1678953238323" />
-                    2 sao
-                </label>
-            </li>
-            <li class="list-group-item d-flex align-items-center gap-2">
-                <label class="d-flex align-items-center gap-2">
-                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                    <img
-                        src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/1-sao.svg?1678953238323" />
-                    1 sao
-                </label>
-            </li>
-        </ul>
-    </div>
-    <div style="height: 1px; width: 100%; background-color: #00000030; margin-bottom: 16px;"></div>
+    
+    <!-- Search by price -->
     <div>
         <h6 class="text-uppercase">Giá</h6>
         <form action="product" method="post">

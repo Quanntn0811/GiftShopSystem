@@ -15,17 +15,21 @@ crossorigin="anonymous"></script>
     }
 </style>
 <link href="../css/layout.css" rel="stylesheet" type="text/css"/>
+
 <!-- header.jsp -->
 <header class="header d-flex flex-column">
     <div class="middle-header border border-bottom-1 order-2 order-md-1">
-        <div class="container">
+        <div class="container" style="margin-bottom: 10px;">
             <div class="row align-items-center">
+                <!-- Logo -->
                 <div class="col-xl-3 col-lg-3 d-lg-block d-none block-logo">
                     <a href="home" class="logo">
                         <img src="//bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171"
                              alt="Meeko">
                     </a>
                 </div>
+
+                <!-- Search section -->
                 <div class="col-xl-7 col-lg-6 block-search">
                     <div class="input-search-wrapper">
                         <form id="frm-seachtxt" action="searchByText" method="get">
@@ -37,6 +41,8 @@ crossorigin="anonymous"></script>
                         </form>
                     </div>
                 </div>
+
+                <!-- Authentication section -->
                 <div class="col-xl-2 col-lg-2 d-lg-flex align-items-center d-none header-right justify-content-end gap-3">
                     <div class="dropdown">
                         <i class="fa-regular fa-user fa-lg" data-bs-toggle="dropdown"></i>
@@ -51,11 +57,11 @@ crossorigin="anonymous"></script>
                                 </c:if>
                         </ul>
                     </div>
-                    <i class="fa-regular fa-heart fa-lg" onclick="notFound()"></i>
                     <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#cartModal"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa-solid fa-cart-plus fa-lg"></i>
                     </button>
+
                     <!-- Modal mobile nav responsive -->
                     <div class="modal right fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -64,6 +70,7 @@ crossorigin="anonymous"></script>
                                     <h4 class="modal-title" id="myModalLabel">Giỏ hàng</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+
                                 <!-- List items in Cart Will Show here -->
                                 <div class="modal-body" id="cart">
                                     <!-- Firt item -->
@@ -144,8 +151,8 @@ crossorigin="anonymous"></script>
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <!-- List items in Cart Will Show here -->
 
+                                <!-- List items in Cart Will Show here -->
                                 <div class="modal-footer d-block w-100">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h6>Tổng tiền:</h6>
@@ -165,8 +172,10 @@ crossorigin="anonymous"></script>
                 </div>
             </div>
         </div>
+
+        <!-- navbar -->
         <div class="site-nav border border-bottom-1 order-1 order-md-2">
-            <div class="container-navbar">
+            <div class="container" style="padding-left: 0;">
                 <nav class="navbar navbar-expand-lg">
                     <div class="container-fluid">
                         <div class="left-side d-flex justify-content-between align-items-center">
@@ -194,15 +203,6 @@ crossorigin="anonymous"></script>
                                        data-bs-target="#exampleModalCenteredScrollable" style="cursor: pointer;">Sản
                                         phẩm</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="premium">Premium</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="notFound">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="notFound">Story</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -211,24 +211,7 @@ crossorigin="anonymous"></script>
         </div>
 </header>
 
-<!-- Modal mobile nav responsive -->
-<div class="modal left fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Left Sidebar</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Left Side bar
-                </p>
-            </div>
-        </div><!-- modal-content -->
-    </div><!-- modal-dialog -->
-</div><!-- modal -->
-<!-- Modal mobile nav responsive-->
-
-<!-- This section used to open modal when click on "Sản phẩm". Remember cut this section and put in on to header section  -->
+<!-- Open modal when click on "Sản phẩm" -->
 <div class="modal fade" id="exampleModalCenteredScrollable" tabindex="-1"
      aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">

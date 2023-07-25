@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.product;
+package Controllers.Admin;
 
 import Controllers.ReloadController;
 import DAL.CollectionDAO;
@@ -21,22 +21,21 @@ import java.util.ArrayList;
  *
  * @author dell
  */
-public class ProductController extends ReloadController {
+public class ListAllProduct extends BaseAdminAuthenticationController {
 
     int collectionID = -1;
     int categoryID = -1;
     int tagID = -1;
     public static String header = null;
-    private int recordsPerPage = 6;
+    private int recordsPerPage = 5;
     double minPrice = 0;
     double maxPrice = 1000000000;
     String textSearch = "";
     int sortOption = -1;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(request, response);
         int page = 1;
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(
@@ -64,9 +63,9 @@ public class ProductController extends ReloadController {
 
         ArrayList<Product> products = pDao.getAllProductParent((page - 1) * recordsPerPage,
                 recordsPerPage, collectionID, categoryID, tagID, textSearch,
-                minPrice, maxPrice, true, sortOption);
+                minPrice, maxPrice, sortOption);
 
-        int noOfRecords = pDao.getNoOfRecordsParent(collectionID, categoryID, tagID, textSearch, minPrice, maxPrice, true);
+        int noOfRecords = pDao.getNoOfRecordsParent(collectionID, categoryID, tagID, textSearch, minPrice, maxPrice);
 
         int noOfPages = (int) Math.ceil((double) noOfRecords
                 / recordsPerPage);
@@ -84,15 +83,24 @@ public class ProductController extends ReloadController {
         request.setAttribute("sortOption", sortOption);
 
         request.setAttribute("header", header);
-        request.setAttribute("products", products);
+        request.setAttribute("list", products);
         request.setAttribute("collections", collections);
         request.setAttribute("textSearch", textSearch);
-        request.getRequestDispatcher("views/Product/Products.jsp").forward(request, response);
+        request.getRequestDispatcher("views/Admin/AllProduct.jsp").forward(request, response);
 
     }
+//
+//
 
+//    public static void main(String[] args) {
+//        ProductDAO pDao = new ProductDAO();
+//        ArrayList<Product> products = pDao.getAllProductParent(0,
+//                5, -1, -1, -1, "", 0.0, 250, true, -1);
+//        int noOfRecords = pDao.getNoOfRecordsParent(-1, 3, -1, "", 0, 250, true);
+//        System.out.println(products.size());
+//    }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null) {
             switch (action) {
@@ -104,6 +112,9 @@ public class ProductController extends ReloadController {
                 case "sort":
                     sortOption = Integer.parseInt(request.getParameter("sortOption"));
                     doGet(request, response);
+                    break;
+                case "add":
+                    response.sendRedirect("home");
                     break;
             }
         }
@@ -159,7 +170,7 @@ public class ProductController extends ReloadController {
         categoryID = -1;
         tagID = -1;
         header = null;
-        recordsPerPage = 6;
+        recordsPerPage = 5;
         minPrice = 0;
         maxPrice = 1000000000;
         textSearch = "";

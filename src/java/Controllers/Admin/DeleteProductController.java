@@ -2,29 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.product;
+package Controllers.Admin;
 
-import Controllers.ReloadController;
-import DAL.ImageProductDAO;
 import DAL.ProductDAO;
-import Model.Constants;
-import Model.ImageProduct;
-import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
  * @author dell
  */
-public class ProductDetailsController extends ReloadController {
-
-    int productID = -1;
+public class DeleteProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +35,10 @@ public class ProductDetailsController extends ReloadController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetailsController</title>");
+            out.println("<title>Servlet DeleteProductController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetailsController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,21 +56,6 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(request, response);
-        if (productID != -1) {
-            ProductDAO pDao = new ProductDAO();
-            ImageProductDAO iDao = new ImageProductDAO();
-
-            Product product = pDao.getProductByID(productID, Constants.Active);
-            ArrayList<ImageProduct> images = iDao.getAllImageByProductID(productID, Constants.DeleteFalse);
-
-            request.setAttribute("product", product);
-            request.setAttribute("images", images);
-
-            request.getRequestDispatcher("views/Product/ProductDetails.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("product");
-        }
     }
 
     /**
@@ -92,12 +69,10 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("productID") != null) {
-            productID = Integer.parseInt(request.getParameter("productID"));
-            doGet(request, response);
-        } else {
-            response.sendRedirect("product");
-        }
+        int productID = Integer.parseInt(request.getParameter("productID"));
+        ProductDAO pDao = new ProductDAO();
+        pDao.delete(productID);
+        response.sendRedirect("listAllProductAdmin");
     }
 
     /**
@@ -111,8 +86,7 @@ public class ProductDetailsController extends ReloadController {
     }// </editor-fold>
 
     public static void main(String[] args) {
-        ImageProductDAO iDao = new ImageProductDAO();
-        ArrayList<ImageProduct> images = iDao.getAllImageByProductID(1, Constants.DeleteFalse);
-        System.out.println(images.get(0).getImage());
+        ProductDAO pDao = new ProductDAO();
+        pDao.delete(1);
     }
 }
