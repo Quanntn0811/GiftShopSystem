@@ -27,10 +27,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 
-/**
- *
- * @author dell
- */
 @MultipartConfig
 public class UpdateProduct extends HttpServlet {
 
@@ -121,7 +117,10 @@ public class UpdateProduct extends HttpServlet {
             pDao.update(product);
 
             //lay file anh client gui len server
-            List<Part> fileParts = request.getParts().stream().filter(part -> "file".equals(part.getName())).collect(Collectors.toList());
+            //List<Part> fileParts = request.getParts().stream().filter(part -> "file".equals(part.getName())).collect(Collectors.toList());
+            List<Part> fileParts = request.getParts().stream()
+                    .filter(part -> "file".equals(part.getName()) && part.getSize() > 0 && !part.getSubmittedFileName().isEmpty())
+                    .collect(Collectors.toList());
             if (!fileParts.isEmpty()) {
                 imgDao.delete(productID);
                 String realPath = request.getServletContext().getRealPath("/");
@@ -144,7 +143,7 @@ public class UpdateProduct extends HttpServlet {
 
                     //them anh vao database
                     ImageProduct image = new ImageProduct(product.getProductId(), filename, false);
-                    
+
                     imgDao.insert(image);
                 }
             }
