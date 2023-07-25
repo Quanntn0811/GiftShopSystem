@@ -39,7 +39,7 @@
                             <div class="w-100 d-flex justify-content-center">
                                 <p class="fw-bold fs-4">Trang tìm kiếm</p> 
                             </div>
-                            <p>Đã tìm thấy ${noOfRecords} kết quả phù hợp</p>
+                            <p style="margin-top: -20px;">Đã tìm thấy ${noOfRecords} kết quả phù hợp</p>
                         </c:if>
                         <c:forEach var="p" items="${products}">
                             <div class="col-6

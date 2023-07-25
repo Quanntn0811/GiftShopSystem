@@ -137,8 +137,6 @@ public class ProductDAO extends DBContext {
         return null;
     }
 
-    
-
     public ArrayList<Product> getAllProductParent(int offset, int recordsPerPage,
             int collectionID, int categoryID, int tagID, String textSearch,
             double minPrice, double maxPrice, boolean status, int sortOption) {

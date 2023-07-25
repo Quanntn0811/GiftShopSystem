@@ -29,7 +29,7 @@ public class ProductController extends ReloadController {
     public static String header = null;
     private int recordsPerPage = 6;
     double minPrice = 0;
-    double maxPrice = 1000000000;
+    double maxPrice = 1000000;
     String textSearch = "";
     int sortOption = -1;
 
@@ -88,7 +88,6 @@ public class ProductController extends ReloadController {
         request.setAttribute("collections", collections);
         request.setAttribute("textSearch", textSearch);
         request.getRequestDispatcher("views/Product/Products.jsp").forward(request, response);
-
     }
 
     @Override
@@ -161,7 +160,7 @@ public class ProductController extends ReloadController {
         header = null;
         recordsPerPage = 6;
         minPrice = 0;
-        maxPrice = 1000000000;
+        maxPrice = 1000000;
         textSearch = "";
         sortOption = -1;
         doGet(request, response);
