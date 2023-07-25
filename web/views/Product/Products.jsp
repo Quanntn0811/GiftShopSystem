@@ -74,9 +74,9 @@
                                     </div>
 
                                     <div class="action-prd-cart">
-                                        <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#cartModal"
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="modal"
                                                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                                                <c:if test="${p.children.size() == 0}">
+                                                <c:if test="${p.children.size() == 0 and p.quantity != 0}">
                                                     onclick="addToCart('${p.productId}', '${p.name}', '${p.images.get(0).image}', '${p.price}', 1
                                                     <c:if test="${p.classValue != null}">
                                                             , '${p.classValue}'
@@ -85,8 +85,9 @@
                                                             , ''
                                                     </c:if>
                                                             )"
+                                                    data-bs-target="#cartModal"
                                                 </c:if>          
-                                                <c:if test="${p.children.size() != 0}">
+                                                <c:if test="${p.children.size() != 0 or p.quantity == 0}">
                                                     onclick="viewProduct('${p.productId}')"
                                                 </c:if>
                                                 >                            
@@ -149,10 +150,10 @@
             </div>
             <%@ include file="AbsoluteBtn.jsp" %>
         </div>
-        
+
         <!-- Footer -->
         <%@ include file="../../includes/footer.jsp" %>
-        
+
         <script>
             //Get the button
             let mybutton = document.getElementById("btn-back-to-top");
@@ -178,7 +179,7 @@
             }
 
         </script>
-        
+
         <script>
             const rangeInput = document.querySelectorAll(".range-input input"),
                     priceInput = document.querySelectorAll(".price-input input"),
