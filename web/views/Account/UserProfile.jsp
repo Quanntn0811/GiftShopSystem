@@ -70,6 +70,8 @@
                                         <th scope="col">Địa chỉ</th>
                                         <th scope="col">Giá trị đơn hàng</th>
                                         <th scope="col">TT thanh toán</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Chi tiết đơn hàng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,6 +85,7 @@
                                                 <fmt:formatNumber value="${sessionScope.orders.get(i).totalOrder}" pattern="#,##0.000" var="formattedNumber" />
                                                 <td> ${formattedNumber}đ</td>
                                                 <td>${sessionScope.orders.get(i).paymentMethod.paymentMethod}</td>
+                                                <td>${sessionScope.orders.get(i).status.statusValue}</td>
                                             </tr>
                                         </c:forEach>
                                     </c:if>

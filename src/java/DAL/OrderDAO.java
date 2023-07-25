@@ -7,6 +7,7 @@ package DAL;
 
 import Model.Order;
 import Model.PaymentMethod;
+import Model.StatusOrder;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,9 +85,14 @@ public class OrderDAO extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
+            
+            StatusOrderDAO stDao = new StatusOrderDAO();
+            
             while (rs.next()) {
                 User fromUser = new User();
                 fromUser.setUserID(userID);
+                
+                StatusOrder status = stDao.getStatusOrderByID(rs.getInt("Status"));
                 
                 PaymentMethodDAO pmDao = new PaymentMethodDAO();
                 PaymentMethod pm = pmDao.getPaymentByID(rs.getInt("PaymentMethod"));
@@ -101,7 +107,7 @@ public class OrderDAO extends DBContext {
                         rs.getDate("DateTime"),
                         pm,
                         rs.getDouble("TotalOrder"),
-                        rs.getInt("Status")));
+                        status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
