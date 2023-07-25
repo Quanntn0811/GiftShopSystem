@@ -18,7 +18,7 @@
         <div class="container">
             <main>
                 <div class="py-5 text-center">
-                    <a href="/home">
+                    <a href="/">
                         <img class="logo__image logo__image--medium " alt="Meeko" style="width: 340px;"
                              src="//bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171">
                     </a>
@@ -28,25 +28,31 @@
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-dark">Đơn hàng</span>
                             <!-- Number of items in cart  -->
-                            <span class="badge bg-dark rounded-pill">1</span>
+                            <span class="badge bg-dark rounded-pill">${sessionScope.totalProduct}</span>
                         </h4>
+                        <c:if test="${overQuantity != null}">
+                            <span style="color: red">Một số sản phẩm bị thay đổi số lượng số lượng sản phẩm nhà bán hàng không đủ hoặc không tồn tại!</span>
+                        </c:if>
                         <ul class="list-group mb-3">
                             <c:forEach items="${sessionScope.cart}" var="ord">
-                                <li class="list-group-item d-flex justify-content-between align-items-center lh-sm">
-                                    <div class="d-flex align-items-center gap-4">
-                                        <img src="${ord.product.images.get(0).image}"
-                                             class=""
-                                             style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
-                                        <h6 class="my-0">${ord.product.name}</h6>
-                                    </div>
-                                    <span class="text-muted">
-                                        <fmt:formatNumber value="${ord.product.price * ord.quantity}" pattern="#,##0.000" var="formattedNumber" />
-                                        ${formattedNumber}đ
-                                    </span>
-                                    <div class="row">
-                                        <p>1</p>
-                                    </div>
-                                </li>
+                                <div>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center lh-sm">
+                                        <div class="d-flex align-items-center gap-4">
+                                            <img src="${ord.product.images.get(0).image}"
+                                                 class=""
+                                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />
+                                            <span class="product-thumbnail__quantity">${ord.quantity}</span>
+                                            <div>
+                                                <h6 class="my-0">${ord.product.name}</h6>
+                                                ${ord.product.classValue}
+                                            </div>
+                                        </div>
+                                        <span class="text-muted">
+                                            <fmt:formatNumber value="${ord.product.price * ord.quantity}" pattern="#,##0.000" var="formattedNumber" />
+                                            ${formattedNumber}đ
+                                        </span>
+                                    </li>
+                                </div>
                             </c:forEach>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (VND)</span>
@@ -55,9 +61,9 @@
                         </ul>
 
                         <div class="p-2 d-flex justify-content-between align-items-center gap-2">
-                            <a href="orderDetail" style="color: black; text-decoration: none;">
+                            <a href="home" style="color: black; text-decoration: none;">
                                 <i class="fa-solid fa-arrow-left-long"></i>
-                                Quay về giỏ hàng
+                                Quay về trang chủ
                             </a>
                             <button type="submit" class="btn btn-dark" onclick="orderProduct()">Đặt hàng</button>
                         </div>
@@ -82,7 +88,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="username" class="form-label">Họ và tên</label>
-                                        <input type="text" name="fullName" required maxlength="255" oninput="validateName(this)"
+                                        <input id="input-fullName" type="text" name="fullName" required maxlength="255" oninput="validateName(this)"
                                                class="form-control mb-3" placeholder="Nhập Họ và Tên" value="${account.fullName}"
                                                aria-label="Username">
                                         <span id="error-fullName" style="color: red; display: none;"></span>
@@ -156,6 +162,7 @@
                 </div>
             </main>
         </div>
+                                               
         <script>
             var cookiesName = 'cart';
             var cookiesPrice = 'totalP';
@@ -166,7 +173,7 @@
             cookiesPrice = cookiesPrice + '<c:out value="${sessionScope.account.userID}"></c:out>';
             </c:if>
 
-            var totalPriceValue = getCookie(cookiesPrice);
+            var totalPriceValue = '<c:out value="${sessionScope.totalPrice}"></c:out>';
             if (totalPriceValue !== '') {
                 $(document).ready(function () {
                     var price = parseFloat(totalPriceValue);
@@ -220,7 +227,8 @@
             var checkAddress = false;
 
             function orderProduct() {
-                if (checkFullName && checkPhone && checkEmail && checkAddress) {
+                var fullName = document.getElementById('input-fullName').value;
+                if (fullName !== '' && checkPhone && checkEmail && checkAddress) {
                     document.getElementById('orderDetailCustomer').submit();
                 } else {
                     alert('Vui lòng kiểm tra lại thông tin đặt hàng!');

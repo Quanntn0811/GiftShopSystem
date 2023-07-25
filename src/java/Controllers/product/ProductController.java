@@ -158,7 +158,6 @@ public class ProductController extends ReloadController {
         categoryID = -1;
         tagID = -1;
         header = null;
-        recordsPerPage = 6;
         minPrice = 0;
         maxPrice = 1000000;
         textSearch = "";

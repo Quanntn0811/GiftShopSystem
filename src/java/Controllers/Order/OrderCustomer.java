@@ -1,14 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers.Order;
 
 import Controllers.ReloadController;
 import DAL.OrderDAO;
+import DAL.OrderDetailsDAO;
 import DAL.ProductDAO;
 import Model.Order;
+import Model.OrderDetails;
 import Model.PaymentMethod;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class OrderCustomer extends ReloadController {
 
@@ -38,6 +38,13 @@ public class OrderCustomer extends ReloadController {
             throws ServletException, IOException {
         super.doGet(request, response);
 
+        ProductDAO pDao = new ProductDAO();
+
+        double totalPrice = 0.0;
+        int totalProduct = 0;
+
+        ArrayList<OrderDetails> cart = new ArrayList<>();
+
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("account");
 
@@ -52,7 +59,6 @@ public class OrderCustomer extends ReloadController {
 
         // Get the cookies from the request
         Cookie[] cookies = request.getCookies();
-
         String cartValue = "";
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -61,10 +67,49 @@ public class OrderCustomer extends ReloadController {
                 }
             }
         }
-        if (account == null || cartValue.trim().equalsIgnoreCase("")) {
+
+        //check if cookies exist or not
+        if (!cartValue.equals("")) {
+            String[] products = cartValue.split("_");
+            for (String product : products) {
+                //check the length of the product cookie
+                if (product.length() != 0) {
+                    String[] proQua = product.split("-");
+                    OrderDetails order = new OrderDetails();
+                    Product pro = pDao.getProductDetailsByID(Integer.parseInt(proQua[0]));
+
+                    //check quantity of product
+                    int quantityBuy = Integer.parseInt(proQua[1]);
+                    if (quantityBuy > pro.getQuantity()) {
+                        quantityBuy = pro.getQuantity();
+                        request.setAttribute("overQuantity", "true");
+                    }
+                    if (!pro.isStatus()) {
+                        quantityBuy = 0;
+                        request.setAttribute("overQuantity", "true");
+                    }
+
+                    order.setProduct(pro);
+                    order.setQuantity(quantityBuy);
+                    cart.add(order);
+
+                    totalPrice += pro.getPrice() * order.getQuantity();
+                    totalProduct += order.getQuantity();
+                }
+            }
+
+        }
+
+        if (account == null) {
+            request.getSession().setAttribute("notLogin", "True");
+            response.sendRedirect("home");
+        } else if (cartValue.trim().equalsIgnoreCase("")) {
             request.getSession().setAttribute("emptyCart", "True");
             response.sendRedirect("home");
         } else {
+            request.getSession().setAttribute("cart", cart);
+            request.getSession().setAttribute("totalPrice", totalPrice);
+            request.getSession().setAttribute("totalProduct", totalProduct);
             request.getRequestDispatcher("views/Order/OrderCustomer.jsp").forward(request, response);
         }
     }
@@ -80,6 +125,11 @@ public class OrderCustomer extends ReloadController {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        ProductDAO pDao = new ProductDAO();
+        OrderDetailsDAO odDao = new OrderDetailsDAO();
+
+        //insert order
         String customerEmail = request.getParameter("email");
         String customerPhone = request.getParameter("phone");
         String customerFullName = request.getParameter("fullName");
@@ -113,9 +163,59 @@ public class OrderCustomer extends ReloadController {
         order.setOrderId(orderID);
 
         oDao.insert(order);
+        ///////////////////////////////
+
+        //insert order details
+        ArrayList<OrderDetails> cart = new ArrayList<>();
+        String cookieName = "cart" + account.getUserID();
+        // Get the cookies from the request
+        Cookie[] cookies = request.getCookies();
+        String cartValue = "";
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    cartValue = cookie.getValue();
+                }
+            }
+        }
+
+        //check if cookies exist or not
+        if (!cartValue.equals("")) {
+            String[] products = cartValue.split("_");
+            for (String product : products) {
+                //check the length of the product cookie
+                if (product.length() != 0) {
+                    String[] proQua = product.split("-");
+                    OrderDetails orderDetails = new OrderDetails();
+                    Product pro = pDao.getProductDetailsByID(Integer.parseInt(proQua[0]));
+
+                    //check quantity of product
+                    int quantityBuy = Integer.parseInt(proQua[1]);
+                    if (quantityBuy > pro.getQuantity()) {
+                        quantityBuy = pro.getQuantity();
+                        request.setAttribute("overQuantity", "true");
+                    }
+                    if (!pro.isStatus()) {
+                        quantityBuy = 0;
+                        request.setAttribute("overQuantity", "true");
+                    }
+
+                    orderDetails.setProduct(pro);
+                    orderDetails.setQuantity(quantityBuy);
+                    cart.add(orderDetails);
+                }
+            }
+
+        }
+
+        for (OrderDetails orderDetails : cart) {
+            if (orderDetails.getQuantity() != 0) {
+                orderDetails.setOrder(order);
+                odDao.insert(orderDetails);
+            }
+        }
 
         //clear cookies
-        String cookieName = "cart" + account.getUserID();
         String priceName = "totalP" + account.getUserID();
         Cookie cookieOrder = new Cookie(cookieName, "");
         Cookie cookiePrice = new Cookie(priceName, "");
@@ -137,18 +237,4 @@ public class OrderCustomer extends ReloadController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-//    public static void main(String[] args) {
-//        
-//        OrderDAO oDao = new OrderDAO();
-//
-//        int orderID = oDao.getMaxID();
-//        orderID++;
-//        
-//        User user = new User();
-//        user.setUserID(18);
-//        
-//        Order order = new Order(orderID, user, "HI Hi", "Khongco@gmail.com", "0987654321", "asdfa32 423234", null, new Date(System.currentTimeMillis()), new PaymentMethod(1, "", true), 320, 1);
-//        oDao.insert(order);
-//    }
 }

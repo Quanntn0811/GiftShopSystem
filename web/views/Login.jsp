@@ -16,11 +16,12 @@
     </head>
 
     <body>
+        <!-- Header -->
         <%@ include file="../includes/header.jsp" %>
+        
         <!-- Login wrapper -->
         <div class="d-flex justify-content-center mt-5 mb-5">
             <div class="login-wrapper shadow bg-body rounded">
-
                 <div class="nav group-login-wrapper mb-2 row" id="accountTab" role="tablist">
                     <div class="col-6">
                         <button class="btn-tab-login active w-100" id="pills-login-tab" data-bs-toggle="pill"
@@ -31,7 +32,6 @@
                         <form action="register" method="get">
                             <button class="btn-tab-login w-100"
                                     type="submit">Đăng kí</button>
-
                         </form>
                     </div>
                 </div>
@@ -40,8 +40,10 @@
                     <div class="tab-pane fade show active body-login-wrapper" id="pills-login" role="tabpanel"
                          aria-labelledby="pills-login-tab">
                         <form action="login" method="post">
-                            <c:if test="${isFail == true}">
-                                <p style="color: red">Thông tin đăng nhập không chính xác.</p>
+                            <c:if test="${isFail != null}">
+                                <c:if test="${isFail == true}">
+                                    <p style="color: red">Thông tin đăng nhập không chính xác.</p>
+                                </c:if>
                             </c:if>
                             <h6>EMAIL <span class="text-danger">*</span></h6>
                             <input type="text" class="form-control mb-3" name="email" required
@@ -79,6 +81,7 @@
             </div>
         </div>
 
+        <!-- Footer -->
         <%@ include file="../includes/footer.jsp" %>
     </body>
 
