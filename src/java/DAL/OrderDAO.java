@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashMap;
@@ -87,15 +89,15 @@ public class OrderDAO extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
-            
+
             StatusOrderDAO stDao = new StatusOrderDAO();
-            
+
             while (rs.next()) {
                 User fromUser = new User();
                 fromUser.setUserID(userID);
-                
+
                 StatusOrder status = stDao.getStatusOrderByID(rs.getInt("Status"));
-                
+
                 PaymentMethodDAO pmDao = new PaymentMethodDAO();
                 PaymentMethod pm = pmDao.getPaymentByID(rs.getInt("PaymentMethod"));
 
@@ -116,6 +118,7 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+
     public Order getOrderByID(int orderId) {
         try {
             String sql = "SELECT *\n"
@@ -152,8 +155,8 @@ public class OrderDAO extends DBContext {
         }
         return null;
     }
-    
-     public ArrayList<Order> getOrderByStatus(int offset, int recordsPerPage, int StatusOrderPending) {
+
+    public ArrayList<Order> getOrderByStatus(int offset, int recordsPerPage, int StatusOrderPending) {
         ArrayList<Order> list = new ArrayList<>();
         try {
             HashMap<Integer, Object> setter = new HashMap<>();
@@ -216,7 +219,6 @@ public class OrderDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public int getNoOfRecords(int statusOrder) {
@@ -292,6 +294,78 @@ public class OrderDAO extends DBContext {
                     + "  FROM [Orders]\n"
                     + "  Where Status != 1";
             PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public double getToTalMoney() {
+        try {
+            String sql = "SELECT SUM(TotalOrder) as 'total'\n"
+                    + "  FROM [Orders]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public double getToTalMoneyByMonth(int month) {
+        try {
+            String sql = "SELECT SUM(TotalOrder) as 'total'\n"
+                    + "  FROM [Orders] Where MONTH(DateTime) = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, month);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        OrderDAO oDao = new OrderDAO();
+        for (int i = 1; i <= 12; i++) {
+            double moneyByMonth = oDao.getToTalMoneyByMonth(i);
+
+            System.out.println(moneyByMonth);
+        }
+    }
+
+    public int getTotalOrder() {
+        try {
+            String sql = "SELECT COUNT(*) as total\n"
+                    + "  FROM [Orders]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public int getTotalOrder(int statusOrder) {
+        try {
+            String sql = "SELECT COUNT(*) as total\n"
+                    + "  FROM [Orders]\n"
+                    + "  Where Status = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, statusOrder);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 return rs.getInt("total");
