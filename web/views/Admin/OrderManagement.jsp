@@ -20,16 +20,6 @@
                 <h5>
                     Quản lý đơn đặt hàng
                 </h5>
-                <!--                <div class="mt-3 d-flex gap-4 align-items-center">
-                                    <div class="form-outline" style="width: 100%;">
-                                        <input type="username" id="form12" class="form-control" placeholder="Tìm kiếm..." />
-                                    </div>
-                                    <select class="form-select" style="width: 200px;" id="city" required="">
-                                        <option value="">Chọn loại sản phẩm</option>
-                                        <option>Tất cả</option>
-                                        <option>Chim cảnh</option>
-                                    </select>
-                                </div>-->
                 <div class="mt-3">
                     <table class="table">
                         <thead>
