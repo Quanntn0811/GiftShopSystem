@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
+import Controllers.Order.OrderDetail;
 import DAL.BestSellerDAO;
 import DAL.CategoryDAO;
 import DAL.CollectionDAO;
@@ -30,10 +27,6 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- * @author dell
- */
 public class HomeController extends ReloadController {
 
     /**
@@ -52,23 +45,11 @@ public class HomeController extends ReloadController {
         HttpSession sesion = request.getSession();
 
         CollectionDAO clDao = new CollectionDAO();
-        TagDAO tDao = new TagDAO();
-        NewArrivalDAO naDao = new NewArrivalDAO();
 
-        String regiester = (String) sesion.getAttribute("register");
-        String orderStatus = (String) sesion.getAttribute("orderStatus");
+        NewArrivalDAO naDao = new NewArrivalDAO();
 
         //get all collection
         ArrayList<Collection> collections = clDao.getAllCollection(true);
-
-        ArrayList<Tag> tags = tDao.getAll();
-
-        //get all categories belong to tag
-        for (Tag tag : tags) {
-            CategoryDAO cDao = new CategoryDAO();
-            ArrayList<Category> categories = cDao.getAllByTagID(tag.getTagId());
-            tag.setCategories(categories);
-        }
 
         //get all new arrival product
         ArrayList<NewArrival> newArrivals = naDao.getAllNew(false, true);
@@ -76,6 +57,12 @@ public class HomeController extends ReloadController {
         //get all best seller product
         BestSellerDAO bDao = new BestSellerDAO();
         ArrayList<BestSeller> bestSellers = bDao.getAllNew(false, true);
+
+        String regiester = (String) sesion.getAttribute("register");
+        String orderStatus = (String) sesion.getAttribute("orderStatus");
+        String emptyCart = (String) sesion.getAttribute("emptyCart");
+        String changePass = (String) sesion.getAttribute("changeFail");
+        String resetPass = (String) sesion.getAttribute("resetPass");
 
         if (regiester != null) {
             request.setAttribute("msg", "Bạn đã đăng ký tài khoản thành công!");
@@ -85,20 +72,35 @@ public class HomeController extends ReloadController {
             request.setAttribute("msg", "Bạn đã đặt hàng thành công! Vui lòng kiểm tra đơn hàng!");
             sesion.setAttribute("orderStatus", null);
         }
+        if (emptyCart != null) {
+            request.setAttribute("msg", "Bạn không có sản phẩm nào trong giỏ hàng!");
+            sesion.setAttribute("emptyCart", null);
+        }
+        if (changePass != null) {
+            if (changePass.equalsIgnoreCase("1")) {
+                request.setAttribute("msg", "Thay đổi mật khẩu thành công!");
+                sesion.setAttribute("changeFail", null);
+            } else {
+                request.setAttribute("msg", "Mật khẩu cũ không chính xác! Vui lòng thử lại!");
+                sesion.setAttribute("changeFail", null);
+            }
+        }
+        if (resetPass != null) {
+            if (resetPass.equalsIgnoreCase("1")) {
+                request.setAttribute("msg", "Thay đổi mật khẩu thành công!");
+                sesion.setAttribute("resetPass", null);
+            } else {
+                request.setAttribute("msg", "Thay đổi mật khẩu không thành công! Vui lòng thử lại!");
+                sesion.setAttribute("resetPass", null);
+            }
+        }
 
-        request.getSession().setAttribute("tags", tags);
         request.getSession().setAttribute("bestSellers", bestSellers);
         request.getSession().setAttribute("bestSellers", bestSellers);
         request.getSession().setAttribute("collections", collections);
         request.getSession().setAttribute("newArrivals", newArrivals);
         request.getRequestDispatcher("views/HomePage.jsp").forward(request, response);
-    }
-//    
-//
-//    public static void main(String[] args) {
-//        double a = 22222.000;
-//        System.out.println(String.valueOf(a));
-//    }
+    }   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
