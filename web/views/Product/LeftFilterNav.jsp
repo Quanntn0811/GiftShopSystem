@@ -37,9 +37,9 @@
                     <div class="progress"></div>
                 </div>
                 <div class="range-input">
-                    <input type="range" class="range-min" min="0" max="10000000" value="${sessionScope.minPrice}" step="100">
-                    <input type="range" class="range-max" min="0" max="10000000" value="${sessionScope.maxPrice}"
-                           step="100">
+                    <input type="range" class="range-min" min="0" max="1000" value="${sessionScope.minPrice}" step="10">
+                    <input type="range" class="range-max" min="0" max="1000" value="${sessionScope.maxPrice}"
+                           step="10">
                 </div>
             </div>
             <input type="hidden" name="action" value="searchByPrice"/>

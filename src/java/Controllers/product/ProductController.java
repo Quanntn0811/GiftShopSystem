@@ -29,7 +29,7 @@ public class ProductController extends ReloadController {
     public static String header = null;
     private int recordsPerPage = 6;
     double minPrice = 0;
-    double maxPrice = 1000000;
+    double maxPrice = 1000;
     String textSearch = "";
     int sortOption = -1;
 
@@ -159,7 +159,7 @@ public class ProductController extends ReloadController {
         tagID = -1;
         header = null;
         minPrice = 0;
-        maxPrice = 1000000;
+        maxPrice = 1000;
         textSearch = "";
         sortOption = -1;
         doGet(request, response);
