@@ -369,7 +369,7 @@
                                     <div class="row mt-2">
                                         <div class="col-6">
                                             <label for="category-film" class="col-form-label">Số lượng:</label>
-                                            <input value="${product.quantity}" type="number" class="form-control" id="category-film" name="quantity" required>
+                                            <input value="${product.quantity}" type="number" class="form-control" id="category-film" min="0" name="quantity" required>
                                         </div>
                                         <div class="col-6">
                                             <label for="category-film" class="col-form-label">Trạng thái:</label>

@@ -14,7 +14,7 @@
                             Liên hệ
                         </h6>
                         <div class="text-decoration-none mb-2">
-                            Hà Nội
+                            Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh, Vietnam
                         </div>
                         <div class="text-decoration-none mb-2">
                             <a class="text-decoration-none" style="color: #333;"
