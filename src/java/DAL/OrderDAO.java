@@ -220,7 +220,7 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public int getNoOfRecords(int statusOrder) {
         try {
             String sql = "SELECT COUNT(*) as 'total'\n"
