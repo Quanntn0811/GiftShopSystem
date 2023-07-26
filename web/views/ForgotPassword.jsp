@@ -1,13 +1,10 @@
-<%@ include file="../includes/header.jsp" %>
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Meeko.vn</title>
-        <link rel="stylesheet" href="style.css" type="text/css" />
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <title>Snippet - BBBootstrap</title>
+         <link rel="stylesheet" href="style.css" type="text/css" />
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <link rel="stylesheet" href="../css/layout.css" type="text/css" />
         <link rel="stylesheet" href="../css/login.css" type="text/css" />
@@ -15,74 +12,93 @@
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/8d39de38b8.js" crossorigin="anonymous"></script>
+        <style>
+            body {
+                background-position: center;
+                background-color: #eee;
+                background-repeat: no-repeat;
+                background-size: cover;
+                color: #505050;
+                font-family: "Rubik", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 1.5;
+                text-transform: none
+            }
+
+            .forgot {
+                background-color: #fff;
+                padding: 12px;
+                border: 1px solid #dfdfdf
+            }
+
+            .padding-bottom-3x {
+                padding-bottom: 72px !important
+            }
+
+            .card-footer {
+                background-color: #fff
+            }
+
+            .btn {
+                font-size: 13px
+            }
+
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #76b7e9;
+                outline: 0;
+                box-shadow: 0 0 0 0px #28a745
+            }
+        </style>
     </head>
-
-    <body>
-        <!-- Login wrapper -->
-        <div class="d-flex justify-content-center mt-5 mb-5">
-            <div class="login-wrapper shadow bg-body rounded">
-
-                <div class="nav group-login-wrapper mb-2 row" id="accountTab" role="tablist">
-                    <div class="col-6">
-                        <button class="btn-tab-login active w-100" id="pills-login-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login"
-                                aria-selected="true">Đăng nhập</button>
+    <%@ include file="../includes/header.jsp" %>
+    <body oncontextmenu='return false' class='snippet-body'>
+        <div class="container padding-bottom-3x mb-2 mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="forgot">
+                        <h2>Forgot your password?</h2>
+                        <p>Change your password in three easy steps. This will help you
+                            to secure your password!</p>
+                        <ol class="list-unstyled">
+                            <li><span class="text-primary text-medium">1. </span>Enter
+                                your email address below.</li>
+                            <li><span class="text-primary text-medium">2. </span>Our
+                                system will send you an OTP to your email</li>
+                            <li><span class="text-primary text-medium">3. </span>Enter the OTP on the 
+                                next page</li>
+                        </ol>
                     </div>
-                    <div class="col-6">
-                        <form action="register" method="get">
-                            <button class="btn-tab-login w-100"
-                                    type="submit">Đăng kí</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="tab-content" id="accountTabContent">
-                    <!--Login form-->
-                    <div class="tab-pane fade show active body-login-wrapper" id="pills-login" role="tabpanel"
-                         aria-labelledby="pills-login-tab">
-                        <div>
-                            <p>Bạn quên mật khẩu? Nhập địa chỉ email để lấy lại mật khẩu qua email.</p>
-                        </div>
-                        <form action="login" method="post">
-                            <h6>EMAIL <span class="text-danger">*</span></h6>
-                            <input type="text" class="form-control mb-3" name="email" required
-                                   placeholder="Nhập địa chỉ Email" aria-label="Username">
-                            <button type="submit" class="btn btn-dark w-100 mb-2">LẤY LẠI MẬT KHẨU</button>
-                            <div class=" d-flex justify-content-center position-relative mb-3">
-                                <div class="login-other-way rounded-pill">
-                                    Quay lại TẠI ĐÂY
-                                </div>
+                    <form class="card mt-4" action="forgotPassword" method="POST">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="email-for-pass">Enter your email address</label> <input
+                                    class="form-control" type="email" name="email" id="email-for-pass" required=""><small
+                                    class="form-text text-muted">Enter the registered email address . Then we'll
+                                    email a OTP to this address.</small>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <p style="color: red">${msg}</p>
+                        <div class="card-footer">
+                            <button class="btn btn-success" type="submit">Get New
+                                Password</button>
+                            <button class="btn btn-danger" type="button" onclick="goLogin()">Back to
+                                Login</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <%@ include file="../includes/footer.jsp" %>
-        <!--Script go to top, copy to every single page-->
+        <script type='text/javascript'
+        <script type='text/javascript' src=''></script>
+        <script type='text/javascript' src=''></script>
         <script>
-            //Get the button
-            let mybutton = document.getElementById("btn-back-to-top");
-
-            // When the user scrolls down 20px from the top of the document, show the button
-            window.onscroll = function () {
-                scrollFunction();
-            };
-
-            function scrollFunction() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                    mybutton.style.display = "block";
-                } else {
-                    mybutton.style.display = "none";
-                }
-            }
-            // When the user clicks on the button, scroll to the top of the document
-            mybutton.addEventListener("click", backToTop);
-
-            function backToTop() {
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-            }
-
+                                function goLogin() {
+                                    window.location.href = "login";
+                                }
         </script>
     </body>
 </html>
