@@ -140,6 +140,7 @@
         <servlet-name>DashboardController</servlet-name>
         <servlet-class>Controllers.Admin.DashboardController</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>

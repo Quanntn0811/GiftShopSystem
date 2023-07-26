@@ -25,4 +25,12 @@ public class Constants {
     public final static boolean Parent = true;
     
     public final static boolean Children = false;
+    
+    public final static int StatusOrderPending = 1;
+    public final static int StatusOrderWait = 2;
+    public final static int StatusOrderFinish = 3;
+    public final static int StatusOrderFail = 4;
+    public final static int StatusOrderCancel = 5;
+    public final static int StatusOrderDenied = 6;
+    
 }

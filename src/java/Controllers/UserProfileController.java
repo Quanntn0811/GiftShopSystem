@@ -1,14 +1,17 @@
 package Controllers;
 
+import DAL.OrderDAO;
+import Model.Constants;
+import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-public class UserProfileController extends HttpServlet {
-
+public class UserProfileController extends ReloadController {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -21,6 +24,10 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
+
+        ArrayList<Product> list = new ArrayList<>();
+        request.setAttribute("list", list);
         request.getRequestDispatcher("views/Account/UserProfile.jsp").forward(request, response);
     }
 
@@ -35,7 +42,15 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        OrderDAO oDao = new OrderDAO();
+        String action = request.getParameter("action");
+        int id = Integer.parseInt(request.getParameter("id"));
+        switch (action) {
+            case "cancel":
+                oDao.setStatusOrder(id, Constants.StatusOrderCancel);
+                doGet(request, response);
+                break;
+        }
     }
 
     /**
