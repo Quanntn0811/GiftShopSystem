@@ -4,6 +4,7 @@
  */
 package Controllers.Authenticate;
 
+import Controllers.ReloadController;
 import DAL.UserDAO;
 import Model.User;
 import Utils.EncodeMD5;
@@ -18,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author dell
  */
-public class loginController extends HttpServlet {
+public class loginController extends ReloadController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,9 +59,16 @@ public class loginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
         request.getRequestDispatcher("/views/Login.jsp").forward(request, response);
     }
 
+//    public static void main(String[] args) {
+//        EncodeMD5 encode = new EncodeMD5();
+//        UserDAO uDAO = new UserDAO();
+//        User user = uDAO.doLogin("cus1@gmail.com", encode.EncoderMD5("123@123"));
+//        System.out.println(user);
+//    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -74,20 +82,27 @@ public class loginController extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String pwd = request.getParameter("pwd");
-        
+
         EncodeMD5 encode = new EncodeMD5();
         String encodePwd = encode.EncoderMD5(pwd);
 
         UserDAO uDAO = new UserDAO();
-        User user = uDAO.doLogin(email,encodePwd);
+        User user = uDAO.doLogin(email, encodePwd);
         if (user != null) {
-            request.getSession().setAttribute("account", user);
-            response.sendRedirect("home");
+            request.getSession().invalidate();
+            if (user.getRole().getId() == 1) {
+                request.getSession().setAttribute("account", user);
+                response.sendRedirect("listAllProductAdmin");
+            } else {
+                request.getSession().setAttribute("account", user);
+                response.sendRedirect("home");
+            }
         } else {
             request.setAttribute("isFail", true);
             request.getRequestDispatcher("views/Login.jsp").forward(request, response);
         }
     }
+
     /**
      * Returns a short description of the servlet.
      *
@@ -98,4 +113,11 @@ public class loginController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        UserDAO uDAO = new UserDAO();
+        EncodeMD5 encode = new EncodeMD5();
+        String encodePwd = encode.EncoderMD5("123@123");
+        User user = uDAO.doLogin("admin@gmail.com", encodePwd);
+        System.out.println(user.getRole().getId());
+    }
 }

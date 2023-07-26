@@ -4,6 +4,7 @@
  */
 package Controllers.Authenticate;
 
+import Controllers.ReloadController;
 import DAL.UserDAO;
 import Model.User;
 import Utils.EncodeMD5;
@@ -20,7 +21,7 @@ import java.time.LocalDate;
  *
  * @author dell
  */
-public class registerController extends HttpServlet {
+public class registerController extends ReloadController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -90,7 +91,7 @@ public class registerController extends HttpServlet {
 
         boolean isExist = uDao.isUserExist(user.getEmail());
         if (isExist) {
-            request.getSession().setAttribute("isFail", true);
+            request.setAttribute("isFail", true);
             request.getSession().setAttribute("msg", "Email đã được đăng ký, vui lòng thử lại!");
             request.setAttribute("account", user);
             request.getRequestDispatcher("/views/Register.jsp").forward(request, response);

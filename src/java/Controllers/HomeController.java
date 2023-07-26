@@ -1,29 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers;
 
+import Controllers.Order.OrderDetail;
 import DAL.BestSellerDAO;
+import DAL.CategoryDAO;
 import DAL.CollectionDAO;
 import DAL.NewArrivalDAO;
+import DAL.ProductDAO;
+import DAL.TagDAO;
 import Model.BestSeller;
+import Model.Category;
 import Model.Collection;
 import Model.NewArrival;
+import Model.Order;
+import Model.OrderDetails;
+import Model.Product;
+import Model.Tag;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- *
- * @author dell
- */
-public class HomeController extends HttpServlet {
+public class HomeController extends ReloadController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,35 +40,67 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
+
         HttpSession sesion = request.getSession();
-        String regiester = (String) sesion.getAttribute("register");
+
+        CollectionDAO clDao = new CollectionDAO();
+
+        NewArrivalDAO naDao = new NewArrivalDAO();
 
         //get all collection
-        CollectionDAO clDao = new CollectionDAO();
         ArrayList<Collection> collections = clDao.getAllCollection(true);
 
         //get all new arrival product
-        NewArrivalDAO naDao = new NewArrivalDAO();
         ArrayList<NewArrival> newArrivals = naDao.getAllNew(false, true);
-        
+
+        //get all best seller product
         BestSellerDAO bDao = new BestSellerDAO();
         ArrayList<BestSeller> bestSellers = bDao.getAllNew(false, true);
-        
+
+        String regiester = (String) sesion.getAttribute("register");
+        String orderStatus = (String) sesion.getAttribute("orderStatus");
+        String emptyCart = (String) sesion.getAttribute("emptyCart");
+        String changePass = (String) sesion.getAttribute("changeFail");
+        String resetPass = (String) sesion.getAttribute("resetPass");
+
         if (regiester != null) {
             request.setAttribute("msg", "Bạn đã đăng ký tài khoản thành công!");
             sesion.setAttribute("register", null);
         }
-        request.setAttribute("bestSellers", bestSellers);
-        request.setAttribute("collections", collections);
-        request.setAttribute("newArrivals", newArrivals);
+        if (orderStatus != null) {
+            request.setAttribute("msg", "Bạn đã đặt hàng thành công! Vui lòng kiểm tra đơn hàng!");
+            sesion.setAttribute("orderStatus", null);
+        }
+        if (emptyCart != null) {
+            request.setAttribute("msg", "Bạn không có sản phẩm nào trong giỏ hàng!");
+            sesion.setAttribute("emptyCart", null);
+        }
+        if (changePass != null) {
+            if (changePass.equalsIgnoreCase("1")) {
+                request.setAttribute("msg", "Thay đổi mật khẩu thành công!");
+                sesion.setAttribute("changeFail", null);
+            } else {
+                request.setAttribute("msg", "Mật khẩu cũ không chính xác! Vui lòng thử lại!");
+                sesion.setAttribute("changeFail", null);
+            }
+        }
+        if (resetPass != null) {
+            if (resetPass.equalsIgnoreCase("1")) {
+                request.setAttribute("msg", "Thay đổi mật khẩu thành công!");
+                sesion.setAttribute("resetPass", null);
+            } else {
+                request.setAttribute("msg", "Thay đổi mật khẩu không thành công! Vui lòng thử lại!");
+                sesion.setAttribute("resetPass", null);
+            }
+        }
+
+        request.getSession().setAttribute("bestSellers", bestSellers);
+        request.getSession().setAttribute("bestSellers", bestSellers);
+        request.getSession().setAttribute("collections", collections);
+        request.getSession().setAttribute("newArrivals", newArrivals);
         request.getRequestDispatcher("views/HomePage.jsp").forward(request, response);
-    }
-//    
-//    public static void main(String[] args) {
-//        BestSellerDAO bDao = new BestSellerDAO();
-//        ArrayList<BestSeller> bestSellers = bDao.getAllNew(false, true);
-//        System.out.println(bestSellers.get(0).getProduct().getAvatar());
-//    }
+    }   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

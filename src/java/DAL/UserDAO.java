@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author dell
+ */
 public class UserDAO extends DBContext {
 
     public void insertUser(User user) {
@@ -49,6 +53,7 @@ public class UserDAO extends DBContext {
             String sql = "SELECT [UserID]\n"
                     + "      ,[FullName]\n"
                     + "      ,[Email]\n"
+                    + "      ,[EmailID]\n"
                     + "      ,[Phone]\n"
                     + "      ,[DOB]\n"
                     + "      ,[Address]\n"
@@ -74,6 +79,7 @@ public class UserDAO extends DBContext {
                         rs.getString("FullName"),
                         rs.getString("Phone"),
                         rs.getString("Email"),
+                        rs.getString("EmailID"),
                         rs.getDate("DOB"),
                         rs.getString("Address"),
                         rs.getString("Avatar"),
@@ -88,7 +94,38 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-    private User getUserByID(int userID) {
+    public User getUserByID(int userID) {
+        try {
+            String sql = "SELECT *\n"
+                    + "  FROM [User]\n"
+                    + "  Where UserID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userID);
+            ResultSet rs = stm.executeQuery();
+
+            RoleDAO rDao = new RoleDAO();
+
+            if (rs.next()) {
+
+                Role role = rDao.getRoleByID(rs.getInt("RoleID"));
+                User manager = getUserByID(rs.getInt("ManagerID"));
+
+                return new User(rs.getInt("UserID"),
+                        rs.getString("FullName"),
+                        rs.getString("Phone"),
+                        rs.getString("Email"),
+                        rs.getString("EmailID"),
+                        rs.getDate("DOB"),
+                        rs.getString("Address"),
+                        rs.getString("Avatar"),
+                        role,
+                        manager,
+                        rs.getBoolean("Status"),
+                        rs.getString("Description"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
@@ -125,7 +162,7 @@ public class UserDAO extends DBContext {
             stm.setDate(6, user.getDob());
             stm.setString(7, user.getAddress());
             stm.setString(8, null);
-            stm.setInt(9, 3);
+            stm.setInt(9, 2);
             stm.setBoolean(10, true);
             stm.executeUpdate();
         } catch (SQLException ex) {
@@ -183,9 +220,50 @@ public class UserDAO extends DBContext {
         return false;
     }
 
-    public static void main(String[] args) {
-        UserDAO dao = new UserDAO();
-        User user = dao.doLogin("cus1@gmail.com", "53e6086284353cb73d4979f08537d950");
-        System.out.println(user);
+    public void changePassword(String email, String encodeNewPass) {
+        try {
+            String sql = "UPDATE [dbo].[User]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE Email = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, encodeNewPass);
+            stm.setString(2, email);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    public boolean isMailExist(String email) {
+        try {
+            String sql = "SELECT *\n"
+                    + "  FROM [User]\n"
+                    + "  Where Email = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public int resetPassWord(String email, String newPassword) {
+        try {
+            String sql = "UPDATE [dbo].[User]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE Email = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, newPassword);
+            stm.setString(2, email);
+            return stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
 }

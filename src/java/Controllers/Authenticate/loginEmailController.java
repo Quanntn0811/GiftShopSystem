@@ -41,6 +41,7 @@ public class loginEmailController extends HttpServlet {
         UserDAO uDao = new UserDAO();
         HttpSession session = request.getSession();
         
+        // Get the authorization code received from the Google Sign-In process
         String code = request.getParameter("code");
         String accessToken = getToken(code);
         UserGoogle user = getUserInfo(accessToken);
@@ -90,7 +91,7 @@ public class loginEmailController extends HttpServlet {
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {
-        // call api to get token
+        // call api to Google's token endpoint to get token
         String response = Request.Post(Constants.GOOGLE_LINK_GET_TOKEN)
                 .bodyForm(Form.form().add("client_id", Constants.GOOGLE_CLIENT_ID)
                         .add("client_secret", Constants.GOOGLE_CLIENT_SECRET)
@@ -100,6 +101,7 @@ public class loginEmailController extends HttpServlet {
 
         JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
         String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
+        
         return accessToken;
     }
 

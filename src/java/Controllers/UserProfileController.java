@@ -1,28 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package Controllers;
 
+import DAL.OrderDAO;
+import Model.Constants;
+import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-/**
- *
- * @author dell
- */
-public class UserProfileController extends HttpServlet {
-   
-    
-
+public class UserProfileController extends ReloadController {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -30,12 +23,17 @@ public class UserProfileController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        request.getRequestDispatcher("views/Account/UserProfile.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
+        super.doGet(request, response);
 
-    /** 
+        ArrayList<Product> list = new ArrayList<>();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("views/Account/UserProfile.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -43,12 +41,21 @@ public class UserProfileController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+        OrderDAO oDao = new OrderDAO();
+        String action = request.getParameter("action");
+        int id = Integer.parseInt(request.getParameter("id"));
+        switch (action) {
+            case "cancel":
+                oDao.setStatusOrder(id, Constants.StatusOrderCancel);
+                doGet(request, response);
+                break;
+        }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
