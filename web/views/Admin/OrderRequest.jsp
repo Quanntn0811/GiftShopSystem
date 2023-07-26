@@ -10,26 +10,16 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     </head>
     <body>
-
+        <!-- Header -->
         <%@ include file="../../includes/admin_header.jsp" %>
+
+        <!-- Nav bar -->
         <%@ include file="../../includes/admin_left.jsp" %>
 
         <!-- Admin Products wrapper -->
         <section style="margin-left: 280px; height: calc(100vh - 83px); overflow-y: auto;">
             <div class="p-4 mb-5">
-                <h5>
-                    Yêu cầu đặt hàng
-                </h5>
-                <!--                <div class="mt-3 d-flex gap-4 align-items-center">
-                                    <div class="form-outline" style="width: 100%;">
-                                        <input type="username" id="form12" class="form-control" placeholder="Tìm kiếm..." />
-                                    </div>
-                                    <select class="form-select" style="width: 200px;" id="city" required="">
-                                        <option value="">Chọn loại sản phẩm</option>
-                                        <option>Tất cả</option>
-                                        <option>Chim cảnh</option>
-                                    </select>
-                                </div>-->
+                <h5> Yêu cầu đặt hàng </h5>
                 <div class="mt-3">
                     <table class="table">
                         <thead>
@@ -220,6 +210,8 @@
                         </c:if>
                     </div>
                 </div>
+
+                <!-- Pagination -->
                 <div class="d-flex justify-content-center mt-5">
                     <nav aria-label="Page navigation example col-12">
                         <ul class="pagination">
@@ -256,10 +248,13 @@
                         </ul>
                     </nav>
                 </div>
-            </div>
-            <%@ include file="../../includes/admin_footer.jsp" %>
+            </div>                             
         </section>
+
+        <!-- Footer -->
+        <%@ include file="../../includes/admin_footer.jsp" %>
     </body>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>

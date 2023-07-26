@@ -88,7 +88,7 @@
         <!-- Copyright -->
 
         <div class="text-center p-3" style="background-color: #fafafa">
-            Copyright © 2022 Meeko.
+            Copyright © 2022 Hommie.
         </div>
         <!-- Copyright -->
     </footer>
