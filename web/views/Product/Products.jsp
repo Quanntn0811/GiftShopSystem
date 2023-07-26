@@ -14,6 +14,14 @@
               integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
         <script src="../js/script.js"></script>
         <script src="https://kit.fontawesome.com/8d39de38b8.js" crossorigin="anonymous"></script>
+        <style>
+            .line-clamp {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
         <!-- Header -->
@@ -90,7 +98,7 @@
                                     <div class="prd-name" onclick="viewProduct('${p.productId}')">
                                         ${p.name}
                                     </div>
-                                    <div class="prd-description">
+                                    <div class="prd-description line-clamp">
                                         ${p.description}
                                     </div>
                                     <div class="prd-price">

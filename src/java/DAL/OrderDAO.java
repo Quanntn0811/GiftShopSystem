@@ -335,15 +335,6 @@ public class OrderDAO extends DBContext {
         return -1;
     }
 
-    public static void main(String[] args) {
-        OrderDAO oDao = new OrderDAO();
-        for (int i = 1; i <= 12; i++) {
-            double moneyByMonth = oDao.getToTalMoneyByMonth(i);
-
-            System.out.println(moneyByMonth);
-        }
-    }
-
     public int getTotalOrder() {
         try {
             String sql = "SELECT COUNT(*) as total\n"

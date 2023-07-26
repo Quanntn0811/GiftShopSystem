@@ -83,6 +83,13 @@
                     opacity: 0;
                 } /* Changed from bottom: 0; */
             }
+
+            .line-clamp {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
         </style>
     </head>
     <body>
@@ -108,8 +115,6 @@
                         aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carousel-starter" data-bs-slide-to="1"
                         aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carousel-starter" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner carousel-starter">
                 <div class="carousel-item active">
@@ -119,9 +124,6 @@
                 <div class="carousel-item">
                     <img src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/slider_2.jpg?1681832246171"
                          class="custom-img" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://source.unsplash.com/random/100x80?sig=3" class="custom-img" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carousel-starter" data-bs-slide="prev">
@@ -199,7 +201,7 @@
                             <div class="prd-name" onclick="viewProduct('${na.product.productId}')">
                                 ${na.product.name}
                             </div>
-                            <div class="prd-description">
+                            <div class="prd-description line-clamp">
                                 ${na.product.description}
                             </div>
                             <div class="prd-price">

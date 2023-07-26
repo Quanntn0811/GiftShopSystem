@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package DAL;
 
 import Model.Category;
@@ -15,6 +19,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author dell
+ */
 public class ProductDAO extends DBContext {
 
     public Product getProductByID(int productID, boolean status) {
@@ -659,7 +667,7 @@ public class ProductDAO extends DBContext {
         }
         return null;
     }
-    
+
     public int getTotalProduct() {
         try {
             String sql = "SELECT COUNT(*) as 'total'\n"
