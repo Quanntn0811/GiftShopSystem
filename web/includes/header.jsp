@@ -24,8 +24,7 @@ crossorigin="anonymous"></script>
                 <!-- Logo -->
                 <div class="col-xl-3 col-lg-3 d-lg-block d-none block-logo">
                     <a href="home" class="logo">
-                        <img src="//bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171"
-                             alt="Meeko">
+                        <img src="../images/banner_logo.png" alt=""/>
                     </a>
                 </div>
 
@@ -34,6 +33,9 @@ crossorigin="anonymous"></script>
                     <div class="input-search-wrapper">
                         <form id="frm-seachtxt" action="searchByText" method="get">
                             <input type="text" name="textSearch" class="input-search rounded-pill" id="floatingInput"
+                                   <c:if test="${sessionScope.textSearch != null}">
+                                       value="<c:out value="${sessionScope.textSearch}"></c:out>"
+                                   </c:if>
                                    placeholder="Tìm kiếm...">
                             <div class="search-icon" onclick="submitTxtSearch()">
                                 <i class="fa-solid fa-magnifying-glass" onclick="submitTxtSearch()"></i>
