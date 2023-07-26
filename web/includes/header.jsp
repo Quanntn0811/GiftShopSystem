@@ -24,8 +24,7 @@ crossorigin="anonymous"></script>
                 <!-- Logo -->
                 <div class="col-xl-3 col-lg-3 d-lg-block d-none block-logo">
                     <a href="home" class="logo">
-                        <img src="//bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171"
-                             alt="Meeko">
+                        <img src="../images/banner_logo.png" alt=""/>
                     </a>
                 </div>
 
