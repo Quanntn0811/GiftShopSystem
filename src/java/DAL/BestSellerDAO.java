@@ -26,7 +26,9 @@ public class BestSellerDAO extends DBContext {
             ProductDAO pDao = new ProductDAO();
             while (rs.next()) {
                 Product product = pDao.getProductByID(rs.getInt("ProductID"), productStatus);
-                list.add(new BestSeller(product, deleteFlag));
+                if (product != null) {
+                    list.add(new BestSeller(product, deleteFlag));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

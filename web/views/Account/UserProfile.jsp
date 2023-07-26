@@ -1,3 +1,8 @@
+<%-- 
+    Document   : UserProfile
+    Created on : Jun 13, 2023, 11:54:34 AM
+    Author     : dell
+--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,13 +16,22 @@
         <link href="../../css/style.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/layout.css" rel="stylesheet" type="text/css"/>
         <script src="script.js"></script>
+        <style>
+            th{
+                width: 100px;
+            }
+        </style>
     </head>
     <body>
+        <!-- Header -->
         <%@ include file="../../includes/header.jsp" %>
+
+        <!-- Main -->
         <div class="row container-home"
              style="padding-left: 1%;padding-right: 64px; padding-top: 60px; padding-bottom: 60px; width: 100%;">
-            <div class="col-lg-3 px-2">
-                <!-- Left section -->
+
+            <!-- Left section -->
+            <div class="col-lg-2 px-2">           
                 <div class="nav group__left__account mb-3" style="display: block;" role="tablist">
                     <h4 style="font-weight: 200;">
                         TRANG TÀI KHOẢN
@@ -37,10 +51,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9 px-2">
-                <!-- Right Section  -->
+
+            <!-- Right Section  -->
+            <div class="col-lg-10 px-2">
                 <div class="tab-content mb-3">
-                    <!-- This section is use for account tab  -->
+                    <!-- Account tab section -->
                     <section class="tab-pane fade show active" id="pills-accounts">
                         <h3 style="font-weight: 300;">
                             TRANG TÀI KHOẢN
@@ -51,12 +66,12 @@
                         <p><span style="font-weight: bold;">Address:</span> ${sessionScope.account.address}</p>
                     </section>
 
-                    <!-- This section is use for see cart tab  -->
+                    <!-- Cart tab section  -->
                     <section class="tab-pane fade show" id="pills-carts">
                         <h3 style="font-weight: 300;">
                             Đơn hàng của bạn
                         </h3>
-                        <div class="mt-2">
+                        <div class="mt-1">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -87,7 +102,7 @@
                                                 </td>
                                             </tr>
 
-                                            <!--Modal Detail-->
+                                        <!--Modal Detail-->
                                         <div class="modal fade" id="detailOrder_${sessionScope.orders.get(i).orderId}" tabindex="-1"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -127,10 +142,22 @@
                                                                 <hr>
                                                             </c:forEach>
                                                         </div>
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                            Đóng
-                                                        </button>
+                                                        <div class="d-flex gap-2">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                Đóng
+                                                            </button>
+                                                            <c:if test="${sessionScope.orders.get(i).status.statusOrderID == 1}">
+                                                                <form id="frm-cancel-${sessionScope.orders.get(i).orderId}" action="userProfile" method="post">
+                                                                    <input type="hidden" value="cancel" name="action">
+                                                                    <input type="hidden" value="${sessionScope.orders.get(i).orderId}" name="id">
+                                                                    <button type="button" class="btn btn-danger"
+                                                                            data-bs-dismiss="modal" onclick="cancelOrder('${sessionScope.orders.get(i).orderId}')">
+                                                                        Hủy đơn hàng
+                                                                    </button>
+                                                                </form>
+                                                            </c:if>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +168,8 @@
                             </table>
                         </div>
                     </section>
-                    <!-- This section is use for change password  -->
+
+                    <!-- Change pwd tab section  -->
                     <section class="tab-pane fade show" id="pills-password">
                         <h3 style="font-weight: 300;">
                             ĐỔI MẬT KHẨU
@@ -172,14 +200,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <%@ include file="../../includes/footer.jsp" %>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/8d39de38b8.js" crossorigin="anonymous"></script>
-    </body>
-    <%@ include file="../../includes/footer.jsp" %>
-
-    <script>
+        <script>
                                     // Get the modal
                                     var modal = document.getElementById("myModal");
 
@@ -256,6 +285,13 @@
                                             checkCfPass = true;
                                         }
                                     }
-    </script>
 
+                                    function cancelOrder(id) {
+                                        var c = confirm('Bạn có chắc hủy đơn hàng này?');
+                                        if (c) {
+                                            document.getElementById('frm-cancel-' + id).submit();
+                                        }
+                                    }
+        </script>
+    </body>  
 </html>

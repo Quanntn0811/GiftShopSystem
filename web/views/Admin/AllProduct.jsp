@@ -27,7 +27,7 @@
                         <i class="fa-solid fa-plus"></i>
                         Thêm sản phẩm</a>
                 </div>
-                <div class="mt-3 d-flex gap-4 align-items-center">
+                <!-- comment <div class="mt-3 d-flex gap-4 align-items-center">
                     <div class="form-outline" style="width: 100%;">
                         <input type="username" id="form12" class="form-control" placeholder="Tìm kiếm..." />
                     </div>
@@ -40,7 +40,7 @@
                             </c:forEach>
                         </c:forEach>
                     </select>
-                </div>
+                </div>-->
                 <div class="mt-4">
                     <table class="table">
                         <thead>
@@ -60,8 +60,8 @@
                                     <th class="d-flex align-items-center" style="height: 78px;" scope="row">${product.productId}</thc>
                                     <td style="width: 30%; height: 78px;">
                                         <div class="d-flex gap-2 align-items-center">
-                                                <img src="${product.images.get(0).image}"
-                                                     class="rounded-2" style="width: 60px; height: 60px; object-fit: contain;" />
+                                            <img src="${product.images.get(0).image}"
+                                                 class="rounded-2" style="width: 60px; height: 60px; object-fit: contain;" />
                                             <h6>${product.name}</h6>
                                         </div>
                                     </td>
@@ -274,16 +274,8 @@
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div>
-                                        <c:set var="mainString" value="${product.images.get(0).image}" />
-                                        <c:set var="subString" value="https" />
-                                        <c:if test="${fn:contains(mainString, subString)}">
-                                            <img src="${product.images.get(0).image}"
-                                                 class="rounded-2" style="width: 60px; height: 60px; object-fit: contain;" />
-                                        </c:if>
-                                        <c:if test="${fn:contains(mainString, subString) == false}">
-                                            <img src="../../images/${product.images.get(0).image}"
-                                                 class="rounded-2" style="width: 60px; height: 60px; object-fit: contain;" />
-                                        </c:if>
+                                        <img src="${product.images.get(0).image}"
+                                             class="rounded-2" style="width: 60px; height: 60px; object-fit: contain;" />
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-12">

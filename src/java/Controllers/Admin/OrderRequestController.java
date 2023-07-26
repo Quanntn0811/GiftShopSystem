@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.product;
+package Controllers.Admin;
 
-import Controllers.ReloadController;
-import DAL.ImageProductDAO;
-import DAL.ProductDAO;
+import DAL.OrderDAO;
+import DAL.OrderDetailsDAO;
 import Model.Constants;
-import Model.ImageProduct;
-import Model.Product;
+import Model.Order;
+import Model.OrderDetails;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,13 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-/**
- *
- * @author dell
- */
-public class ProductDetailsController extends ReloadController {
+public class OrderRequestController extends HttpServlet {
 
-    int productID = -1;
+    final int recordsPerPage = 5;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +38,10 @@ public class ProductDetailsController extends ReloadController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetailsController</title>");
+            out.println("<title>Servlet OrderRequestController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetailsController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OrderRequestController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,21 +59,36 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(request, response);
-        if (productID != -1) {
-            ProductDAO pDao = new ProductDAO();
-            ImageProductDAO iDao = new ImageProductDAO();
 
-            Product product = pDao.getProductByID(productID);
-            ArrayList<ImageProduct> images = iDao.getAllImageByProductID(productID, Constants.DeleteFalse);
+        OrderDetailsDAO odDao = new OrderDetailsDAO();
+        OrderDAO oDao = new OrderDAO();
 
-            request.setAttribute("product", product);
-            request.setAttribute("images", images);
-
-            request.getRequestDispatcher("views/Product/ProductDetails.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("product");
+        int page = 1;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(
+                    request.getParameter("page"));
         }
+
+        //get all order with status = 1
+        ArrayList<Order> orders = oDao.getOrderByStatus((page - 1) * recordsPerPage,
+                recordsPerPage, Constants.StatusOrderPending);
+
+        int noOfRecords = oDao.getNoOfRecords(Constants.StatusOrderPending);
+
+        int noOfPages = (int) Math.ceil((double) noOfRecords
+                / recordsPerPage);
+
+        for (Order order : orders) {
+            ArrayList<OrderDetails> orderDetails = odDao.getOrderDetailsByOrderID(order.getOrderId());
+            order.setOrderDetails(orderDetails);
+        }
+
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("noOfRecords", noOfRecords);
+
+        request.setAttribute("orders", orders);
+        request.getRequestDispatcher("/views/Admin/OrderRequest.jsp").forward(request, response);
     }
 
     /**
@@ -92,11 +102,18 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("productID") != null) {
-            productID = Integer.parseInt(request.getParameter("productID"));
-            doGet(request, response);
-        } else {
-            response.sendRedirect("product");
+        OrderDAO oDao = new OrderDAO();
+        String action = request.getParameter("action");
+        int id = Integer.parseInt(request.getParameter("id"));
+        switch (action) {
+            case "accept":
+                oDao.setStatusOrder(id, Constants.StatusOrderWait);
+                doGet(request, response);
+                break;
+            case "denined":
+                oDao.setStatusOrder(id, Constants.StatusOrderDenied);
+                doGet(request, response);
+                break;
         }
     }
 
@@ -110,9 +127,4 @@ public class ProductDetailsController extends ReloadController {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) {
-        ImageProductDAO iDao = new ImageProductDAO();
-        ArrayList<ImageProduct> images = iDao.getAllImageByProductID(1, Constants.DeleteFalse);
-        System.out.println(images.get(0).getImage());
-    }
 }

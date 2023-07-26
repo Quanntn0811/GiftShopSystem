@@ -1,31 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package Controllers.product;
 
-import Controllers.ReloadController;
-import DAL.ImageProductDAO;
+package Controllers.Admin;
+
+import DAL.OrderDAO;
 import DAL.ProductDAO;
 import Model.Constants;
-import Model.ImageProduct;
-import Model.Product;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 
-/**
- *
- * @author dell
- */
-public class ProductDetailsController extends ReloadController {
-
-    int productID = -1;
-
+public class DashboardController extends HttpServlet{
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,10 +31,10 @@ public class ProductDetailsController extends ReloadController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProductDetailsController</title>");
+            out.println("<title>Servlet DashboardController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProductDetailsController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,23 +52,50 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.doGet(request, response);
-        if (productID != -1) {
-            ProductDAO pDao = new ProductDAO();
-            ImageProductDAO iDao = new ImageProductDAO();
 
-            Product product = pDao.getProductByID(productID);
-            ArrayList<ImageProduct> images = iDao.getAllImageByProductID(productID, Constants.DeleteFalse);
+        ProductDAO pDao = new ProductDAO();
+        OrderDAO oDao = new OrderDAO();
 
-            request.setAttribute("product", product);
-            request.setAttribute("images", images);
+        double totalMoney = oDao.getToTalMoney();
 
-            request.getRequestDispatcher("views/Product/ProductDetails.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("product");
+        LocalDate currentDate = LocalDate.now();
+        int currentMonth = currentDate.getMonthValue();
+        double totalMoneyByMonth = oDao.getToTalMoneyByMonth(currentMonth);
+
+        //get total order 
+        double totalOrder = oDao.getTotalOrder();
+        double totalOrderFinish = oDao.getTotalOrder(Constants.StatusOrderFinish);
+        double totalOrderCancel = oDao.getTotalOrder(Constants.StatusOrderCancel);
+        double totalOrderFail = oDao.getTotalOrder(Constants.StatusOrderFail);
+
+        float percentCancel = (float) Math.round((totalOrderCancel / totalOrder) * 100);
+        float percentFinish = (float) Math.round((totalOrderFinish / totalOrder) * 100);
+        float percentFail = (float) Math.round((totalOrderFail / totalOrder) * 100);
+        
+        
+        //get total product
+        int totalProduct = pDao.getTotalProduct();
+
+        request.setAttribute("totalProduct", totalProduct);
+
+        request.setAttribute("percentFail", percentFail);
+        request.setAttribute("percentFinish", percentFinish);
+        request.setAttribute("percentCancel", percentCancel);
+
+        request.setAttribute("totalMoneyByMonth", totalMoneyByMonth);
+        request.setAttribute("totalMoney", totalMoney);
+
+        for (int i = 1; i <= 12; i++) {
+            double moneyByMonth = oDao.getToTalMoneyByMonth(i);
+            request.setAttribute("month"+i, moneyByMonth);
         }
+        
+        request.getRequestDispatcher("/views/Admin/Dashboard.jsp").forward(request, response);
     }
 
+//    public static void main(String[] args) {
+//        System.out.println(Math.round((1.0/3.0)*100));
+//    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -92,12 +107,7 @@ public class ProductDetailsController extends ReloadController {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("productID") != null) {
-            productID = Integer.parseInt(request.getParameter("productID"));
-            doGet(request, response);
-        } else {
-            response.sendRedirect("product");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -109,10 +119,4 @@ public class ProductDetailsController extends ReloadController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    public static void main(String[] args) {
-        ImageProductDAO iDao = new ImageProductDAO();
-        ArrayList<ImageProduct> images = iDao.getAllImageByProductID(1, Constants.DeleteFalse);
-        System.out.println(images.get(0).getImage());
-    }
 }

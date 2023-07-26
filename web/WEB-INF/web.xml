@@ -37,6 +37,10 @@
         <servlet-class>Controllers.Authenticate.logoutController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UserInformationController</servlet-name>
+        <servlet-class>Controllers.User.UserInformationController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>emailLoginController</servlet-name>
         <servlet-class>Controllers.Authenticate.loginEmailController</servlet-class>
     </servlet>
@@ -77,10 +81,6 @@
         <servlet-class>Controllers.product.ListAllProductController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForgotPasswordServlet</servlet-name>
-        <servlet-class>Controllers.User.ForgotPasswordServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SearchByTagController</servlet-name>
         <servlet-class>Controllers.product.SearchByTagController</servlet-class>
     </servlet>
@@ -89,8 +89,20 @@
         <servlet-class>Controllers.product.SearchByCategoryController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>Controllers.User.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ReloadController</servlet-name>
         <servlet-class>Controllers.ReloadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>Controllers.Test</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controllers.Authenticate.ChangePasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListAllProduct</servlet-name>
@@ -112,6 +124,23 @@
         <servlet-name>DeleteProductController</servlet-name>
         <servlet-class>Controllers.Admin.DeleteProductController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderRequestController</servlet-name>
+        <servlet-class>Controllers.Admin.OrderRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListCategoryController</servlet-name>
+        <servlet-class>Controllers.Admin.ListCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListOrderController</servlet-name>
+        <servlet-class>Controllers.Admin.ListOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>Controllers.Admin.DashboardController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -147,6 +176,10 @@
     <servlet-mapping>
         <servlet-name>logoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserInformationController</servlet-name>
+        <url-pattern>/userInformation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>emailLoginController</servlet-name>
@@ -189,10 +222,6 @@
         <url-pattern>/listAllProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForgotPasswordServlet</servlet-name>
-        <url-pattern>/forgotPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchByTagController</servlet-name>
         <url-pattern>/searchByTag</url-pattern>
     </servlet-mapping>
@@ -201,8 +230,20 @@
         <url-pattern>/searchByCategory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ReloadController</servlet-name>
         <url-pattern>/ReloadController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/testServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListAllProduct</servlet-name>
@@ -223,6 +264,22 @@
     <servlet-mapping>
         <servlet-name>DeleteProductController</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderRequestController</servlet-name>
+        <url-pattern>/orderRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCategoryController</servlet-name>
+        <url-pattern>/listCategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListOrderController</servlet-name>
+        <url-pattern>/listOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

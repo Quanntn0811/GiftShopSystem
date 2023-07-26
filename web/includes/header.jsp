@@ -33,6 +33,9 @@ crossorigin="anonymous"></script>
                     <div class="input-search-wrapper">
                         <form id="frm-seachtxt" action="searchByText" method="get">
                             <input type="text" name="textSearch" class="input-search rounded-pill" id="floatingInput"
+                                   <c:if test="${sessionScope.textSearch != null}">
+                                       value="<c:out value="${sessionScope.textSearch}"></c:out>"
+                                   </c:if>
                                    placeholder="Tìm kiếm...">
                             <div class="search-icon" onclick="submitTxtSearch()">
                                 <i class="fa-solid fa-magnifying-glass" onclick="submitTxtSearch()"></i>
