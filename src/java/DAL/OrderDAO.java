@@ -219,11 +219,6 @@ public class OrderDAO extends DBContext {
 
     }
 
-    public static void main(String[] args) {
-        OrderDAO oDao = new OrderDAO();
-        oDao.setStatusOrder(13, 2);
-    }
-
     public int getNoOfRecords(int statusOrder) {
         try {
             String sql = "SELECT COUNT(*) as 'total'\n"

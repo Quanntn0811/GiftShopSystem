@@ -102,7 +102,7 @@
                                                 </td>
                                             </tr>
 
-                                            <!--Modal Detail-->
+                                        <!--Modal Detail-->
                                         <div class="modal fade" id="detailOrder_${sessionScope.orders.get(i).orderId}" tabindex="-1"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
