@@ -89,15 +89,15 @@ public class OrderDAO extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
-            
+
             StatusOrderDAO stDao = new StatusOrderDAO();
-            
+
             while (rs.next()) {
                 User fromUser = new User();
                 fromUser.setUserID(userID);
-                
+
                 StatusOrder status = stDao.getStatusOrderByID(rs.getInt("Status"));
-                
+
                 PaymentMethodDAO pmDao = new PaymentMethodDAO();
                 PaymentMethod pm = pmDao.getPaymentByID(rs.getInt("PaymentMethod"));
 
@@ -118,6 +118,7 @@ public class OrderDAO extends DBContext {
         }
         return list;
     }
+
     public Order getOrderByID(int orderId) {
         try {
             String sql = "SELECT *\n"
@@ -154,70 +155,7 @@ public class OrderDAO extends DBContext {
         }
         return null;
     }
-    
-     public ArrayList<Order> getOrderByStatus(int offset, int recordsPerPage, int StatusOrderPending) {
-        ArrayList<Order> list = new ArrayList<>();
-        try {
-            HashMap<Integer, Object> setter = new HashMap<>();
-            int count = 0;
-            String sql = "SELECT *\n"
-                    + "  FROM [Orders]\n"
-                    + "  Where Status = ?\n";
-            setter.put(++count, StatusOrderPending);
 
-            sql += "  Order by OrderID\n"
-                    + "  offset ? Row\n"
-                    + "  Fetch next ? rows only";
-            setter.put(++count, offset);
-            setter.put(++count, recordsPerPage);
-
-            PreparedStatement stm = connection.prepareStatement(sql);
-            for (Map.Entry<Integer, Object> entry : setter.entrySet()) {
-                stm.setObject(entry.getKey(), entry.getValue());
-            }
-            ResultSet rs = stm.executeQuery();
-
-            StatusOrderDAO stDao = new StatusOrderDAO();
-            UserDAO uDao = new UserDAO();
-
-            while (rs.next()) {
-                User fromUser = uDao.getUserByID(rs.getInt("OrderFromUser"));
-
-                StatusOrder status = stDao.getStatusOrderByID(rs.getInt("Status"));
-
-                PaymentMethodDAO pmDao = new PaymentMethodDAO();
-                PaymentMethod pm = pmDao.getPaymentByID(rs.getInt("PaymentMethod"));
-
-                list.add(new Order(rs.getInt("OrderID"),
-                        fromUser,
-                        rs.getString("Customer_Name"),
-                        rs.getString("Customer_Email"),
-                        rs.getString("Customer_Phone"),
-                        rs.getString("Customer_Address"),
-                        null,
-                        rs.getDate("DateTime"),
-                        pm,
-                        rs.getDouble("TotalOrder"),
-                        status));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-
-    public void setStatusOrder(int id, int statusOrder) {
-        try {
-            String sql = "UPDATE [dbo].[Orders]\n"
-                    + "   SET [Status] = ?\n"
-                    + " WHERE OrderID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, statusOrder);
-            stm.setInt(2, id);
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
     public ArrayList<Order> getOrderByStatus(int offset, int recordsPerPage, int StatusOrderPending) {
         ArrayList<Order> list = new ArrayList<>();
         try {
@@ -282,7 +220,7 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public int getNoOfRecords(int statusOrder) {
         try {
             String sql = "SELECT COUNT(*) as 'total'\n"
@@ -365,6 +303,7 @@ public class OrderDAO extends DBContext {
         }
         return -1;
     }
+
     public double getToTalMoney() {
         try {
             String sql = "SELECT SUM(TotalOrder) as 'total'\n"
