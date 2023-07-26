@@ -87,7 +87,7 @@
     </head>
     <body>
         <%@ include file="../includes/header.jsp" %>
-        
+
         <!-- display message here -->
         <div id="snackbar"></div>
         <c:if test="${msg != null}">
@@ -100,7 +100,7 @@
                 }, 3000);
             </script>
         </c:if>
-            
+
         <!-- Carousel wrapper -->
         <div id="carousel-starter" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -148,7 +148,7 @@
                 <div style="width: 2px; height: 80px; background-color: white;"></div>
             </c:forEach>
         </div>
-        
+
         <!-- New product -->
         <section class="new-product container-home">
             <div class="new-product-header d-flex justify-content-center align-items-center gap-5 mt-5 mb-5">
@@ -210,7 +210,7 @@
                 </c:forEach>
             </div>
         </section>
-        
+
         <!-- Hot product -->
         <section class="hot-product container-home">
             <div class="hot-product-header d-flex justify-content-center align-items-center gap-5 mt-5 mb-5">
@@ -252,6 +252,7 @@
                                         <c:if test="${bs.product.children.size() != 0 || bs.product.quantity == 0}">
                                             onclick="viewProduct('${bs.product.productId}')"
                                         </c:if>
+                                        >
                                     <i class="fa-solid fa-cart-plus fa-lg"></i>
                                 </button>
                             </div>
@@ -271,7 +272,7 @@
                 </c:forEach>
             </div>
         </section>     
-       
+
         <%@ include file="Product/AbsoluteBtn.jsp" %>
         <%@ include file="../includes/footer.jsp" %>
         <!--Script go to top, copy to every single page-->
@@ -298,16 +299,16 @@
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
             }
-          
+
             function viewProduct(id) {
                 document.getElementById("frm-product-details-" + id).submit();
             }
         </script>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-        
+
         <script src="https://kit.fontawesome.com/8d39de38b8.js" crossorigin="anonymous"></script>
     </body>
 </html>
